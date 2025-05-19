@@ -1,22 +1,26 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../api';
+import { AnswerDataType, LessonState, PageLessonTypes, resultDataType, selectedLessonTypes, TestData } from '../types';
 
-const initialState = {
+const initialState: LessonState = {
   beforeLesson: null,
-  selectedLesson:null,
+  selectedLesson: null,
   afterLesson: null,
   test: null,
   tests: [],
   loading: false,
   error: null,
-  status:false,
-  submitStatus:false,
-  answerStatus:false,
+  status: false,
+  submitStatus: false,
+  answerStatus: false,
   resultData: null
 };
 
-
-export const fetchOrderLessonById = createAsyncThunk(
+export const fetchOrderLessonById = createAsyncThunk<
+  { lesson: selectedLessonTypes; beforeLesson: PageLessonTypes; afterLesson: PageLessonTypes },
+  number | string,
+  { rejectValue: string }
+>(
   'orderLesson/getById',
   async (id, thunkAPI) => {
     try {
@@ -26,13 +30,22 @@ export const fetchOrderLessonById = createAsyncThunk(
         beforeLesson: lesson?.data.beforeLesson,
         afterLesson: lesson?.data.afterLesson
       }
-    } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    } catch (err) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const fetchExamByNo = createAsyncThunk(
+export const fetchExamByNo = createAsyncThunk<
+  { test: TestData; tests: TestData[]; resultData: resultDataType },
+  number | string,
+  { rejectValue: string }
+>(
   'test/getByNo',
   async (no, thunkAPI) => {
     try {
@@ -42,44 +55,64 @@ export const fetchExamByNo = createAsyncThunk(
         tests: res?.data?.tests,
         resultData: res?.data?.resultData
       }
-    } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    } catch (err : unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const updateAnswerThunk = createAsyncThunk(
+export const updateAnswerThunk = createAsyncThunk<boolean, AnswerDataType, { rejectValue: string }>(
   'order/update',
   async (AnswerData, thunkAPI) => {
     try {
       await api.patch('/my_classes/send_answer',AnswerData);
       return true;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const CompleteModuleThunk = createAsyncThunk(
+export const CompleteModuleThunk = createAsyncThunk<boolean, number | string, { rejectValue: string }>(
   'order_lesson/complete',
   async (id, thunkAPI) => {
     try {
-      const res = await api.patch('/my_classes/process',id);
-      return res;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      await api.patch('/my_classes/process',id);
+      return true;
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const submitTestThunk = createAsyncThunk(
+export const submitTestThunk = createAsyncThunk<boolean, number | string, { rejectValue: string }>(
   'test/submit',
   async (orderLessonId, thunkAPI) => {
     try {
-      const res = await api.patch('/my_classes/submit',orderLessonId);
-      return res;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      await api.patch('/my_classes/submit',orderLessonId);
+      return true;
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
@@ -111,7 +144,7 @@ const lessonSlice = createSlice({
       })
       .addCase(fetchOrderLessonById.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? true;
       })
       .addCase(fetchExamByNo.pending, (state) => {
         state.loading = true;
@@ -124,7 +157,7 @@ const lessonSlice = createSlice({
       })
       .addCase(fetchExamByNo.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? true;
       })
       .addCase(updateAnswerThunk.pending, (state) => {
         state.loading = true;
@@ -136,7 +169,7 @@ const lessonSlice = createSlice({
       })
       .addCase(updateAnswerThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       })
       .addCase(submitTestThunk.pending, (state) => {
         state.loading = true;
@@ -148,7 +181,7 @@ const lessonSlice = createSlice({
       })
       .addCase(submitTestThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       })
       .addCase(CompleteModuleThunk.pending, (state) => {
         state.loading = true;
@@ -160,11 +193,11 @@ const lessonSlice = createSlice({
       })
       .addCase(CompleteModuleThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       })
   },
 });
 
-export const { resetAll, resetError, resetlesson } = lessonSlice.actions;
+export const { resetAll, resetError } = lessonSlice.actions;
 
 export default lessonSlice.reducer;

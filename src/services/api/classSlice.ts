@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFacilities } from '../../data';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getFacilities } from '../data';
 import api from '../api';
+import { classCategoriesType, classDateItem, ClassState, ClassType, FacilityItem, GetClassesParams } from '../types';
 
-const initialState = {
-  selectedClass:null,
-  classLessons: [],
+const initialState: ClassState = {
+  selectedClass: null,
   classData: [],
   classFacilities: [],
   classCategoriesData: [],
@@ -12,34 +12,56 @@ const initialState = {
   error: null,
 };
 
-export const getClasses = createAsyncThunk(
+export const getClasses = createAsyncThunk<
+  classDateItem[],
+  GetClassesParams,
+  { rejectValue: string }
+>(
   'class/fetch',
   async (params,thunkAPI) => {
     try {
       const response = await api.get('/classes',{params});
       return response.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const getClassCategories = createAsyncThunk(
+export const getClassCategories = createAsyncThunk<
+  classCategoriesType[],
+  void,
+  { rejectValue: string }
+>(
   'class_categories/fetch',
-  async (thunkAPI) => {
+  async (_,thunkAPI) => {
     try {
       const response = await api.get('/class_categories');
-      let data = response.data.data;
+      const data = response.data.data;
       data.push({ id: 0, name: 'Semua Kelas' });
-      data.sort((a, b) => a.id - b.id);
+      data.sort((a:classCategoriesType, b:classCategoriesType) => a.id - b.id);
       return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const fetchClassById = createAsyncThunk(
+export const fetchClassById = createAsyncThunk<
+  { classData: ClassType; classFacilities: FacilityItem[] },
+  number,
+  { rejectValue: string }
+>(
   'class/getById',
   async (id, thunkAPI) => {
     try {
@@ -52,8 +74,13 @@ export const fetchClassById = createAsyncThunk(
         classData: response.data.data,
         classFacilities: updatedFacilities
       };
-    } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    } catch (err:unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
@@ -77,24 +104,24 @@ const classSlice = createSlice({
       .addCase(getClasses.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getClasses.fulfilled, (state, action) => {
+      .addCase(getClasses.fulfilled, (state, action:PayloadAction<classDateItem[]>) => {
         state.loading = false;
         state.classData = action.payload;
       })
       .addCase(getClasses.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? true;
       })
       .addCase(getClassCategories.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getClassCategories.fulfilled, (state, action) => {
+      .addCase(getClassCategories.fulfilled, (state, action: PayloadAction<classCategoriesType[]>) => {
         state.loading = false;
         state.classCategoriesData = action.payload;
       })
       .addCase(getClassCategories.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? true;
       })
       .addCase(fetchClassById.pending, (state) => {
         state.loading = true;
@@ -106,7 +133,7 @@ const classSlice = createSlice({
       })
       .addCase(fetchClassById.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload ?? true;
       });
   },
 });

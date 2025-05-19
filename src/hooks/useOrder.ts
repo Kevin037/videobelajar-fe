@@ -1,38 +1,28 @@
 // hooks/useUser.js
-import { useDispatch, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { createOrderThunk, createReviewThunk, getMyClasses, getOrderById, getOrders, paidOrderThunk, updateOrderThunk } from '../services/api/orderSlice';
 import { useEffect } from 'react';
-import { ParamsType, Section } from '@/services/types';
+import { ChangePaymentType, OrderDataType, ReviewDataType, useOrderType } from '@/services/types';
+import { AppDispatch, RootState } from '@/services/store';
 
-const useOrder = (id: number | null | undefined = null,params: ParamsType|null=null, testId = null, classes = false): {
-  currentOrder: any;
-  loading: boolean;
-  error: any;
-  createOrder: any;
-  orderData: any;
-  updateOrder: any;
-  status: any;
-  orderLessons: Section[];
-  createReview: any;
-  paidOrder: any;
-  myClassData: any;
-} => {
-  const dispatch = useDispatch();
-  const { orderData, currentOrder, loading, error, status, orderLessons, myClassData } = useSelector(state => state.order);
+const useOrder = (id: number | null | undefined = null,params: string|null=null, classes = false): useOrderType => {
+  const dispatch = useDispatch<AppDispatch>();
+  const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+  const { orderData, currentOrder, loading, error, status, orderLessons, myClassData } = useTypedSelector(state => state.order);
 
-  const createOrder = (userData) => {
+  const createOrder = (userData:OrderDataType) => {
     dispatch(createOrderThunk(userData));
   };
 
-  const createReview = (reviewData) => {
+  const createReview = (reviewData:ReviewDataType) => {
     dispatch(createReviewThunk(reviewData));
   };
 
-  const updateOrder = (orderData) => {
+  const updateOrder = (orderData:ChangePaymentType) => {
     dispatch(updateOrderThunk(orderData));
   };
 
-  const paidOrder = (id) => {
+  const paidOrder = (id:number) => {
     dispatch(paidOrderThunk(id));
   };
 
@@ -46,7 +36,7 @@ const useOrder = (id: number | null | undefined = null,params: ParamsType|null=n
       if (id) {
         dispatch(getOrderById(id));
       }
-    }, [dispatch,params]);
+    }, [dispatch,params,id, classes]);
 
   return { currentOrder, loading, error, createOrder, orderData, updateOrder, status, orderLessons, createReview, paidOrder, myClassData };
 };

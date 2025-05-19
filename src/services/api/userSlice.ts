@@ -1,28 +1,34 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../api';
+import { UserData, UserState } from '../types';
 
-const initialState = {
+const initialState: UserState = {
   currentUser: null,
   loading: false,
-  error: null,
+  error: null ,
   status: null
 };
 
-export const registerUserThunk = createAsyncThunk(
+export const registerUserThunk = createAsyncThunk<boolean, UserData, { rejectValue: string }>(
   'user/register',
   async (userData, thunkAPI) => {
     try {
-      const res = await api.post('/auth/register', userData);
-      return res;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      await api.post('/auth/register', userData);
+      return true;
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const getUserById = createAsyncThunk(
+export const getUserById = createAsyncThunk<UserData, void, { rejectValue: string }>(
   'user/getById',
-  async (thunkAPI) => {
+  async (_,thunkAPI) => {
     try {
       const res = await api.get('/auth/profile');
       if (res?.data?.data.photo != null) {
@@ -30,38 +36,53 @@ export const getUserById = createAsyncThunk(
       }
       
       return res.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const updateUserThunk = createAsyncThunk(
+export const updateUserThunk = createAsyncThunk<boolean, UserData, { rejectValue: string }>(
   'order/update',
   async (userData, thunkAPI) => {
     try {
-      const response = await api.patch(`/auth/update`, userData);
+      await api.patch(`/auth/update`, userData);
 
-      return response; // res berisi data document baru dari Firestore
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return true;
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
 
-export const updateUserPhotoThunk = createAsyncThunk(
+export const updateUserPhotoThunk = createAsyncThunk<boolean, FormData, { rejectValue: string }>(
   'user/updatePhoto',
   async (userData, thunkAPI) => {
     try {
-      const response = await api.post(`/auth/upload`, userData, {
+      await api.post(`/auth/upload`, userData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
       });
 
-      return response; // res berisi data document baru dari Firestore
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return true; // res berisi data document baru dari Firestore
+    } catch (err: unknown) {
+        let errorMessage = "Something went wrong";
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const error = err as { response?: { data?: string }; message?: string };
+          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+        }
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
@@ -74,10 +95,10 @@ const userSlice = createSlice({
       return initialState;
     },
     resetError: (state) => {
-      state.error = false;
+      state.error = null;
     },
-    resetclass: (state) => {
-      state.userData = [];
+    resetUser: (state) => {
+      state.currentUser = null;
     },
   },
   extraReducers: (builder) => {
@@ -86,13 +107,13 @@ const userSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUserThunk.fulfilled, (state, action) => {
+      .addCase(registerUserThunk.fulfilled, (state) => {
         state.loading = false;
-        state.currentUser = action.payload; // data user baru dari Firestore
+        state.currentUser = true;
       })
       .addCase(registerUserThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       })
       .addCase(getUserById.pending, (state) => {
         state.loading = true;
@@ -104,7 +125,7 @@ const userSlice = createSlice({
       })
       .addCase(getUserById.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       })
       .addCase(updateUserThunk.pending, (state) => {
         state.loading = true;
@@ -116,7 +137,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUserThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       })
       .addCase(updateUserPhotoThunk.pending, (state) => {
         state.loading = true;
@@ -128,11 +149,11 @@ const userSlice = createSlice({
       })
       .addCase(updateUserPhotoThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message;
+        state.error = action.payload ?? true;
       });
   },
 });
 
-export const { resetUser } = userSlice.actions;
+export const { resetError, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;

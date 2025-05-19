@@ -1,22 +1,25 @@
 // hooks/useUser.js
-import { useDispatch, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { getUserById, registerUserThunk, resetUser, updateUserPhotoThunk, updateUserThunk } from '../services/api/userSlice';
 import { useEffect } from 'react';
+import { AppDispatch, RootState } from '@/services/store';
+import { UserData } from '@/services/types';
 
 const useUser = () => {
-  const dispatch = useDispatch();
-  const { currentUser, loading, error, status } = useSelector(state => state.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+  const { currentUser, loading, error, status } = useTypedSelector(state => state.user);
 
   // Fungsi register, terima userData misal { name, email, password }
-  const register = (userData) => {
+  const register = (userData:UserData) => {
     dispatch(registerUserThunk(userData));
   };
 
-    const update = (userData) => {
+    const update = (userData:UserData) => {
       dispatch(updateUserThunk(userData));
     };
 
-    const updateImage = (userData) => {
+    const updateImage = (userData:FormData) => {
       dispatch(updateUserPhotoThunk(userData));
     };
 

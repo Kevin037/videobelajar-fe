@@ -1,11 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk, logOutuserThunk } from '../services/api/authSlice';
+import { AppDispatch, RootState } from '@/services/store';
+import { LoginCredentials } from '@/services/types';
 
 const useAuth = () => {
-  const dispatch = useDispatch();
-  const { user, loading, error, status } = useSelector(state => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
+  const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+  const { user, loading, error, status } = useTypedSelector(state => state.auth);
 
-  const login = (userData) => {
+  const login = (userData: LoginCredentials) => {
     dispatch(loginUserThunk(userData));
   };
 

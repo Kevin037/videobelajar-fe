@@ -1,5 +1,4 @@
-export type ClassCardProps = {
-    order: {
+export type ClassDataType = {
         completed_my_classes: number,
         total_my_classes: number,
         class_completed: string,
@@ -15,6 +14,9 @@ export type ClassCardProps = {
         id: number,
         status: string,
     }
+
+export type ClassCardProps = {
+    order: ClassDataType
 }
 
 export type PaymentMethod = {
@@ -133,16 +135,6 @@ export type CardItemsProps = {
     data: CardItemsPropVal
 }
 
-export type UseClassParams = {
-  id?: number | null;
-  limit?: number;
-  category_id?: number | null;
-  price?: string | null;
-  duration?: string | null;
-  search?: string | null;
-  order_by?: string | null;
-};
-
 interface TutorType {
   id: string;
   name: string;
@@ -217,6 +209,13 @@ export interface TestData {
   no: number
 }
 
+export type resultDataType = {
+    submitted_at: string;
+    score: number;
+    total_questions: number;
+    correct_answers: number;
+    wrong_answers: number;
+  };
 export interface ContentLessonProps {
   orderData: OrderDataType;
   type: string;
@@ -225,13 +224,7 @@ export interface ContentLessonProps {
   test: TestData;
   tests: TestData[];
   rules: string;
-  resultData: {
-    submitted_at: string;
-    score: number;
-    total_questions: number;
-    correct_answers: number;
-    wrong_answers: number;
-  };
+  resultData: resultDataType;
   selectedLesson: Lesson;
 }
 
@@ -365,3 +358,135 @@ export type SidebarMenuItem = {
 export type VideoPlayerProps = {
   videoUrl?: string;
 };
+
+export interface FacilityItem {
+  key: string;
+  label?: string;
+  value?: string | number | null;
+  img: string;
+  name: string;
+}
+
+export interface ClassState {
+  selectedClass: ClassType | null;
+  // classLessons: any[]; // ganti dengan tipe jika tersedia
+  classData: classDateItem[];
+  classFacilities: FacilityItem[];
+  classCategoriesData: classCategoriesType[];
+  loading: boolean;
+  error: string | null | boolean;
+}
+
+// GET ALL CLASSES
+export interface GetClassesParams {
+  category_id?: number | null;
+  price?: number | null;
+  duration?: number | null;
+  search?: string | null;
+  order_by?: string | null;
+
+}
+
+export interface UseClassParams {
+  id?: number | null;
+  limit?: number;
+  category_id?: number | null;
+  price?: number | null;
+  duration?: number | null;
+  search?: string | null;
+  order_by?: string | null;
+}
+
+export interface LessonState {
+  beforeLesson: PageLessonTypes | null;
+  selectedLesson: selectedLessonTypes | null;
+  afterLesson: PageLessonTypes | null;
+  test: TestData | null;
+  tests: TestData[];
+  loading: boolean;
+  error: string | null | boolean;
+  status: boolean;
+  submitStatus: boolean;
+  answerStatus: boolean;
+  resultData: resultDataType | null;
+}
+
+export type AnswerDataType = {
+  id: number,
+  answer: string
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export type useClassType = {
+  classData: classDateItem[];
+  selectedClass: ClassType | null;
+  limitedClass: classDateItem[];
+  loading: boolean;
+  classFacilities: FacilityItem[];
+  classCategoriesData: classCategoriesType[];
+}
+
+export interface UseLessonResult {
+  id?: number | string | null;
+  orderId?: number | null;
+  type?: string | null;
+  no?: string | number | null;
+  selectedLesson: selectedLessonTypes | null;
+  beforeLesson: PageLessonTypes | null;
+  afterLesson: PageLessonTypes | null;
+  test: TestData | null;
+  tests: TestData[];
+  status: boolean;
+  submitStatus: boolean;
+  answerStatus: boolean;
+  resultData: resultDataType | null;
+  loading: boolean;
+  error: string | boolean | null;
+  completeModule: (id: number | string) => void;
+  submitTest: (orderLessonId: number | string) => void;
+  updateAnswer: (AnswerData: AnswerDataType) => void;
+}
+
+export type useOrderType = {
+  currentOrder: Order | null;
+  loading: boolean;
+  error: string | boolean | null;
+  createOrder: (userData: OrderData) => void;
+  orderData: Order[];
+  updateOrder: (orderData: any) => void;
+  status: boolean | null;
+  orderLessons: Section[];
+  createReview: (reviewData: ReviewData) => void;
+  paidOrder: (id: any) => void;
+  myClassData: ClassDataType[];
+}
+
+export type ChangePaymentType = {
+  order_id: string | number;
+  payment_method: string;
+}
+
+export type ReviewDataType = {
+  order_id: number;
+  rating: number;
+  description: string;
+};
+
+export type UserData = {
+  name: string;
+  email: string | null;
+  password: string | null;
+  no_hp: string;
+  photo?: string | null;
+}
+
+export interface UserState {
+  currentUser: User | null | boolean;
+  loading: boolean;
+  error: string | boolean | null;
+  status: boolean | null | any;
+}
