@@ -1,3 +1,4 @@
+import { AnswerOption } from "@/components/Fragments/QuestionSegment";
 import { SidebarMenuItem } from "@/components/Fragments/SidebarMenu";
 import { FilterProps } from "@/pages/category";
 
@@ -526,10 +527,10 @@ export const formatNumberToK = (num) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-export const json_to_array = (json) => {
+export const json_to_array = (json:any): AnswerOption[] => {
     const answerArray = Object.entries(json).map(([key, value]) => ({
         key,
-        value
+        value: value as string
       }));
     return answerArray;
 }

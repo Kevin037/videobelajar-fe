@@ -190,12 +190,14 @@ export type classCategoriesType = {
 // };
 
 export interface OrderDataType {
+  id: number; 
   avatar?: string;
   user?: string;
   user_position?: string;
   user_company?: string;
   rating?: number;
   total_selling?: number;
+  order_id?: number;
 }
 
 export interface Lesson {
@@ -203,20 +205,23 @@ export interface Lesson {
 }
 
 export interface TestData {
-  id?: string;
+  id: string | number;
   question?: string;
   answer?: string;
   option_1?: string;
   option_2?: string;
   option_3?: string;
   option_4?: string;
+  options?:any
+  user_answer?: string; 
+  no: number
 }
 
 export interface ContentLessonProps {
   orderData: OrderDataType;
   type: string;
   classId: number;
-  testNo: number | null;
+  testNo: number | string | null;
   test: TestData;
   tests: TestData[];
   rules: string;
@@ -284,14 +289,7 @@ export type FilterOption = {
 };
 
 export type VideoLesssonProps = {
-    orderData: {
-        avatar?: string;
-        user?: string;
-        user_position?: string;
-        user_company?: string;
-        rating?: number;
-        total_selling?: number;
-    },
+    orderData: OrderDataType,
     selectedLesson: {
         type: string
     }
@@ -300,7 +298,7 @@ export type VideoLesssonProps = {
 export type TestLessonProps = {
     type: string,
     classId: string | number,
-    testNo?: number
+    testNo?: number | string
 }
 
 export type ModalReviewProps = {
@@ -315,8 +313,8 @@ export type ModalProps = {
   onClose: () => void;
   totalAnswer: number;
   totalQuestions: number;
-  testNo: string;
-  orderId: string;
+  testNo: number | string;
+  orderId: string | number | null;
   type: string;
   setModalOpen: any;
 };
@@ -329,33 +327,20 @@ export type ProgressProps = {
 };
 
 export type QuestionLessonProps = {
-    orderData: object;
+    orderData: OrderDataType
     type: string;
     classId: number;
-    testNo: number;
-    test: {
-        id: number;
-        question: string;
-        options: string;
-        answer: string;
-        user_answer: string;
-        no: number
-    };
-    tests: Array<{
-        id: number;
-        question: string;
-        options: string;
-        answer: string;
-        user_answer: string;
-    }>;
+    testNo: number | string;
+    test: TestData;
+    tests: TestData[];
 }
 
 export type TestResultProps = {
     type: string;
     classId: number | string;
-    testNo: number;
-    test: object;
-    tests: Array<object>;
+    testNo: number | string;
+    test: TestData;
+    tests: TestData[];
     resultData: {
         submitted_at: string;
         score: number;

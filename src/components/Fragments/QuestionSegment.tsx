@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import useLesson from "@/hooks/useLesson";
 import { json_to_array } from "@/services/data";
 import { ArrowLeft, ArrowRight, Check} from "lucide-react";
@@ -8,16 +8,26 @@ import ModalSubmitTest from "@/components/Fragments/ModalSubmitTest";
 import { Link } from "react-router-dom";
 import { QuestionLessonProps } from "@/services/types";
 
+export interface AnswerOption {
+  key: string;
+  value: string;
+}
+
 const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
     const {orderData,type,classId,testNo,test,tests} = props
-    const [answerOptions, setAnswerOptions] = useState([]);
+    const [answerOptions, setAnswerOptions] = useState<AnswerOption[]>([]);
     const {updateAnswer} = useLesson();
     const [selectedOption, setSelectedOption] = useState(test?.user_answer);
     const [totalAnswer, setTotalAnswer] = useState(0);
     const [isModalOpen, setModalOpen] = useState(false);
     useEffect(() => {
         if (test?.options) {
-            setAnswerOptions(json_to_array(JSON.parse(test?.options)));
+            try {
+                const parsed = JSON.parse(test.options);
+                setAnswerOptions(json_to_array(parsed));
+            } catch (e) {
+                console.error("Failed to parse options JSON", e);
+            }
         }
         setSelectedOption(test?.user_answer);
     },[test])
@@ -28,7 +38,7 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
         }
     },[tests])
 
-    const SendAnswer = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,key) => {
+    const SendAnswer = (e: ChangeEvent<HTMLInputElement>,key:string) => {
         setSelectedOption(key)
         e.preventDefault();
         updateAnswer({id:testNo,answer:key});
@@ -77,7 +87,7 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
                         <div className="grid grid-cols-2 gap-2 mt-8">
                             <div className="col-span-1">
                                 {test?.no > 1 && (
-                                <ButtonSecondary varian="w-full flex justify-center gap-2" url={`/class/${classId}/${type}/${tests[parseInt(parseInt(test.no)-2)].id}`}>                        
+                                <ButtonSecondary varian="w-full flex justify-center gap-2" url={`/class/${classId}/${type}/${tests[Number(Number(test.no)-2)].id}`}>                        
                                     <ArrowLeft/>
                                     <span className="text-sm font-medium">Sebelumnya</span>
                                 </ButtonSecondary>   
@@ -85,7 +95,7 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
                             </div>
                             <div className="col-span-1">
                                 {test?.no < tests.length ? (
-                                <ButtonPrimary varian=" flex justify-center gap-2" url={`/class/${classId}/${type}/${tests[parseInt(parseInt(test.no))].id}`}>
+                                <ButtonPrimary varian=" flex justify-center gap-2" url={`/class/${classId}/${type}/${tests[Number(Number(test.no))].id}`}>
                                     <span className="text-sm font-medium">Selanjutnya</span>
                                     <ArrowRight />
                                 </ButtonPrimary>
@@ -101,7 +111,7 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
                                             testNo={testNo} 
                                             totalQuestions={answerOptions.length} 
                                             totalAnswer={totalAnswer}
-                                            orderId={orderData?.order_id}
+                                            orderId={orderData.id}
                                             type={type}
                                             setModalOpen={setModalOpen}
                                             />

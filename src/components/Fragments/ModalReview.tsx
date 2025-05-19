@@ -1,18 +1,16 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useOrder from "@/hooks/useOrder";
 import { ButtonPrimary, ButtonWhite } from "@/components/Elements/button";
 import Modal from "@/components/Elements/Modal";
 import { ModalReviewProps } from "@/services/types";
 
 export default function ModalReview({ isOpen, onClose, id, user_rating }: ModalReviewProps) {
-  if (!isOpen) return null;
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const {createReview,status} = useOrder();
   const [showForm, setShowForm] = useState(user_rating != null ? false : true);
 
-  const SubmitReview = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const SubmitReview = () => {
     if (rating === 0) {
       alert("Pilih Rating Terlebih Dahulu");
       return false;
@@ -25,7 +23,7 @@ export default function ModalReview({ isOpen, onClose, id, user_rating }: ModalR
       window.location.reload();
     }
   }, [status]);
-
+  if (!isOpen) return null;
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
               {!showForm ? (
@@ -38,7 +36,7 @@ export default function ModalReview({ isOpen, onClose, id, user_rating }: ModalR
           <ButtonWhite onClick={onClose} >
             Batal
           </ButtonWhite>
-          <ButtonPrimary className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={() => setShowForm(true)}>
+          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={() => setShowForm(true)}>
             Ya, hapus dan lanjutkan
           </ButtonPrimary>
         </div>
@@ -65,7 +63,7 @@ export default function ModalReview({ isOpen, onClose, id, user_rating }: ModalR
         <textarea
           placeholder="Masukkan Review"
           className="w-full border rounded-lg p-2 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-          rows="3" onChange={e => setReview(e.target.value)}
+          rows={3} onChange={e => setReview(e.target.value)}
         />
 
         {/* BUTTONS */}
@@ -73,7 +71,7 @@ export default function ModalReview({ isOpen, onClose, id, user_rating }: ModalR
           <ButtonWhite onClick={onClose} >
             Batal
           </ButtonWhite>
-          <ButtonPrimary className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={(e) => SubmitReview(e)}>
+          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={() => SubmitReview()}>
             Selesai
           </ButtonPrimary>
         </div>
