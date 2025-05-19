@@ -3,37 +3,9 @@ import { Card } from "@/components/Elements/card";
 import { H1, H2 } from "@/components/Elements/heading";
 import { ButtonPrimary } from "@/components/Elements/button";
 import Image from "next/image";
+import { Facility, ItemSpesificationProps } from "@/services/types";
 
-type Props = {
-    isDetail?: boolean;
-    data: {
-        name?: string;
-        description?: string;
-        page_title?: string;
-        photo: string;
-        new_price: number;
-        price: number;
-        discount: number;
-        language: string;
-    // [key: string]: any;
-  };
-    id?: string | number;
-      facilities: {
-    key: string;
-    name: string;
-    value: string;
-    img: string;
-  }[];
-}
-
-type Facility = {
-  key: string;
-  name: string;
-  value: string;
-  img: string;
-};
-
-export const ItemSpesification: React.FC<Props> = (props) => {
+export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
     const {isDetail,data,id,facilities} = props
     return (
         <Card varian="md:mr-4 p-4">

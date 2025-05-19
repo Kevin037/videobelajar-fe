@@ -158,6 +158,10 @@ export type ClassType = {
   long_description: string;
   tutors: TutorType[];
   modules: ModuleType[];
+  photo: string;
+  price: number;
+  discount: number;
+  language: string;
 };
 
 // export type PaymentMethodsGroup = {
@@ -426,7 +430,7 @@ export type useClassType = {
   selectedClass: ClassType | null;
   limitedClass: classDateItem[];
   loading: boolean;
-  classFacilities: FacilityItem[];
+  classFacilities: Facility[];
   classCategoriesData: classCategoriesType[];
 }
 
@@ -490,3 +494,27 @@ export interface UserState {
   error: string | boolean | null;
   status: boolean | null | any;
 }
+
+export type ItemSpesificationProps = {
+  isDetail?: boolean;
+  data: {
+      name?: string;
+      description?: string;
+      page_title?: string;
+      photo?: string;
+      new_price: number;
+      price: number;
+      discount: number;
+      language?: string;
+    // [key: string]: any;
+  };
+  id?: string | number;
+  facilities: Facility[]
+}
+
+export type Facility = {
+  key: string;
+  name: string;
+  value: string;
+  img: string;
+};
