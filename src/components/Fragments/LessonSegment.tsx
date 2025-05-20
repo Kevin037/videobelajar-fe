@@ -53,11 +53,11 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                 <p>Pelajari dan praktikkan skill teknis dalam berbagai industri dengan Technical Book Riselearn</p>
                 <div className="my-2 grid grid-cols-3 grid-cols-12 ...">
                     <div className="col-span-1 ...">
-                        <Image src={`/assets/${orderData?.avatar}`} alt="" />
+                        <Image src={`/assets/${orderData?.tutor_photo}`} alt="" />
                     </div>
                     <div className="text-sm col-span-11 ...">
                         <p><b>{orderData?.user}</b></p>
-                        <p>{orderData?.user_position} di {orderData?.user_company}</p>
+                        <p>{orderData?.user_position} di {orderData?.tutor_company}</p>
                     </div>
                 </div>
                 <div className="flex gap-3">

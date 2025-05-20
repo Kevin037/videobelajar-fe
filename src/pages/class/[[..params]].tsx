@@ -69,7 +69,7 @@ const CompleteModule = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLBut
     setNextPage(key);
     e.preventDefault();
     if (confirm("Apakah anda yakin ingin menyelesaikan modul ini?")) {
-        completeModule({id:lessonId});   
+        completeModule(lessonId);   
     }
 };
 

@@ -6,7 +6,7 @@ import { TestResultProps } from "@/services/types";
 
 const TestResult: React.FC<TestResultProps> = (props) => {
     const {type,classId,resultData,testNo} = props
-    const remedial = (type == "quiz" && resultData?.score < 70) ? true : false
+    const remedial = (resultData && type == "quiz" && resultData.score < 70) ? true : false
     const image = (remedial) ? "/assets/tryagain.svg" : "/assets/result.svg"
     return (
         <>

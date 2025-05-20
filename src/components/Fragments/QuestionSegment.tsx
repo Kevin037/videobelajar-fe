@@ -101,6 +101,8 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
                                 </ButtonPrimary>
                                 ) : (
                                     <>
+                                    {orderData && (
+                                        <>
                                         <ButtonPrimary varian=" flex justify-center gap-2" onClick={() => setModalOpen(true)}>
                                             <span className="text-sm font-medium">Submit</span>
                                             <Check />
@@ -115,6 +117,8 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
                                             type={type}
                                             setModalOpen={setModalOpen}
                                             />
+                                        </>
+                                    )}
                                     </>
                                 )}
                             </div>

@@ -13,8 +13,8 @@ import { classCategoriesType } from "@/services/types";
 const token = localStorage.getItem("token");
 const HomePage = () => {
 
-const [activeTab, setActiveTab] = useState<string | number>("");
-const category_id = activeTab === "" ? null : activeTab;
+const [activeTab, setActiveTab] = useState<number | null>(null);
+const category_id = activeTab === null ? null : activeTab;
 const { classData, classCategoriesData } = useClass({limit:0,category_id:category_id});
 
 useEffect(() => {
@@ -48,9 +48,9 @@ useEffect(() => {
                 <div className="flex space-x-6 whitespace-nowrap border-gray-200 mt-4 mx-4">
                     <button
                         key={""}
-                        onClick={() => setActiveTab("")}
+                        onClick={() => setActiveTab(null)}
                         className={`pb-2 font-medium text-sm md:text-base transition-all item-option ${
-                        activeTab === ""
+                        activeTab === null
                             ? "text-red-500 cursor-pointer active"
                             : "text-gray-700 hover:text-red-500 cursor-pointer"
                         }`}>Semua Kelas</button>

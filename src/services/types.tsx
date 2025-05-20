@@ -72,14 +72,24 @@ export type classDateItem = {
 }
 
 export interface Order {
+  id: number;
   name: string;
   description: string;
   tutor: string;
+  user: string;
+  user_company: string;
   user_position: string;
   tutor_company: string;
   tutor_photo: string;
   rating: number;
   total_selling: number;
+  progress: number;
+  totalCompletedModule: number;
+  totalModule: number;
+  pretestId: number;
+  title: string;
+  user_rating: number;
+  avatar?: string;
 }
 
 export interface User {
@@ -221,14 +231,14 @@ export type resultDataType = {
     wrong_answers: number;
   };
 export interface ContentLessonProps {
-  orderData: OrderDataType;
+  orderData: Order | null;
   type: string;
   classId: number;
   testNo: number | string | null;
   test: TestData;
   tests: TestData[];
   rules: string;
-  resultData: resultDataType;
+  resultData: resultDataType | null;
   selectedLesson: Lesson;
 }
 
@@ -286,7 +296,7 @@ export type FilterOption = {
 };
 
 export type VideoLesssonProps = {
-    orderData: OrderDataType,
+    orderData: Order | null,
     selectedLesson: {
         type: string
     }
@@ -301,8 +311,8 @@ export type TestLessonProps = {
 export type ModalReviewProps = {
   isOpen: boolean;
   onClose: () => void;
-  id: string;
-  user_rating: number;
+  id?: number;
+  user_rating?: number;
 };
 
 export type ModalProps = {
@@ -317,14 +327,14 @@ export type ModalProps = {
 };
 
 export type ProgressProps = {
-  id: string;
-  progress: number;
-  completeModule: number;
-  totalModule: number;
+  id?: number | string;
+  progress?: number;
+  completeModule?: number;
+  totalModule?: number;
 };
 
 export type QuestionLessonProps = {
-    orderData: OrderDataType
+    orderData: Order | null;
     type: string;
     classId: number;
     testNo: number | string;
@@ -338,14 +348,15 @@ export type TestResultProps = {
     testNo: number | string;
     test: TestData;
     tests: TestData[];
-    resultData: {
-        submitted_at: string;
-        score: number;
-        total_questions: number;
-        correct_answers: number;
-        wrong_answers: number;
-    };
+    resultData?: resultDataType | null;
 }
+// {
+    //     submitted_at: string;
+    //     score: number;
+    //     total_questions: number;
+    //     correct_answers: number;
+    //     wrong_answers: number;
+    // };
 
 export type SidebarMenuProps = {
     activeMenu: string
@@ -416,7 +427,7 @@ export interface LessonState {
 }
 
 export type AnswerDataType = {
-  id: number,
+  id: number | string | null,
   answer: string
 }
 
@@ -439,10 +450,10 @@ export interface UseLessonResult {
   orderId?: number | null;
   type?: string | null;
   no?: string | number | null;
-  selectedLesson: selectedLessonTypes | null;
+  selectedLesson: selectedLessonTypes;
   beforeLesson: PageLessonTypes | null;
   afterLesson: PageLessonTypes | null;
-  test: TestData | null;
+  test: TestData;
   tests: TestData[];
   status: boolean;
   submitStatus: boolean;
