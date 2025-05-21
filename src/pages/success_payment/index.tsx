@@ -14,13 +14,13 @@ const SuccessPaymentPage = () => {
     },[]);
 
  return (
-    <Authlayout title="Home" navType="home" withFooter={false} customHead={<Image alt="" src="../assets/process_completed.svg" className="w-100" />}>
+    <Authlayout title="Home" navType="home" withFooter={false} customHead={<Image alt="" src="/assets/process_completed.svg" width={20} height={20} className="w-100" />}>
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
             <div className="p-2 mt-2 block md:hidden">
-                <Image alt="" src="../assets/process_completed_mobile.svg" className="w-full" />
+                <Image alt="" src="/assets/process_completed_mobile.svg" width={20} height={20} className="w-full" />
             </div>
             <Card varian="mb-4 p-10 text-center hover:opacity-100">
-                <Image className="object-cover w-100 h-auto h-auto mx-auto" src="../assets/success_payment.svg" alt="" />
+                <Image className="object-cover w-100 h-auto h-auto mx-auto" src="/assets/success_payment.svg" width={50} height={50} alt="" />
                 <H2 varian="mt-4 text-center">Pembayaran Berhasil!</H2>         
                 <div className="justify-center">
                     <p className="text-sm text-gray-400">Silakan cek email kamu untuk informasi lebih lanjut. Hubungi kami jika ada kendala.</p>

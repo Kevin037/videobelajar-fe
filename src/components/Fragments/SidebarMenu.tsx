@@ -23,7 +23,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = (props) => {
                         }`} 
                         key={menu.id}>
                         <div className="col-span-2 md:col-span-3 ... mx-3">
-                            <Image className="object-cover" src={activeMenu === menu.url ? menu.activeIcon : menu.icon} alt="" />
+                            <Image className="object-cover" src={activeMenu === menu.url ? menu.activeIcon : menu.icon} width={20} height={20} alt="" />
                         </div>
                         <div className="col-span-10 md:col-span-9 ...">{menu.name}</div>
                     </div>

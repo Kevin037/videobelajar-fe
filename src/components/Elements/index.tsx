@@ -38,12 +38,16 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>((props, ref: Forw
             {showPassword ? 
                 <Image
                     alt="Your Company"
-                    src='../assets/hide.png'
+                    src='/assets/hide.png'
+                    width={20}
+                    height={20}
                     className="h-5 w-auto"
                 /> : 
                 <Image
                     alt="Your Company"
-                    src='assets/show.png'
+                    src='/assets/show.png'
+                    width={20}
+                    height={20}
                     className="h-5 w-auto"
                 />}
             </span>}

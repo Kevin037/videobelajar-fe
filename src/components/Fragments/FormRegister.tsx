@@ -57,7 +57,7 @@ const FormRegister = () => {
                 <ButtonSecondary url="/login" varian="mt-2">Masuk</ButtonSecondary>
                 <div className="separator mt-4 mb-4">atau</div>
                 <ButtonSpan varian="hover:bg-gray-50">
-                    <Image src="../assets/logos_google.svg" className="w-5 h-5" alt="Google" />
+                    <Image src="/assets/logos_google.svg" width={20} height={20} className="w-5 h-5" alt="Google" />
                     Daftar dengan Google
                 </ButtonSpan>
             </form>

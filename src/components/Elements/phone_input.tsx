@@ -29,7 +29,7 @@ const PhoneInputForm = forwardRef<HTMLInputElement, InputFormProps>((props, ref)
                         className="flex items-center bg-gray-50 px-3 py-2 border text-sm rounded"
                         onClick={() => setDropdownOpen(!isDropdownOpen)}
                         >
-                        <span className="mr-2"><Image src={selectedCountry.flag} alt="flag" className="w-5 h-4 mr-2 object-cover rounded-sm" /></span>
+                        <span className="mr-2"><Image src={selectedCountry.flag} width={20} height={20} alt="flag" className="w-5 h-4 mr-2 object-cover rounded-sm" /></span>
                         {selectedCountry.code}
                         </button>
 
@@ -44,7 +44,7 @@ const PhoneInputForm = forwardRef<HTMLInputElement, InputFormProps>((props, ref)
                                 setDropdownOpen(false);
                                 }}
                             >
-                                <span className="mr-2"><Image src={selectedCountry.flag} alt="flag" className="w-5 h-4 mr-2 object-cover rounded-sm" /></span>
+                                <span className="mr-2"><Image src={selectedCountry.flag} width={20} height={20} alt="flag" className="w-5 h-4 mr-2 object-cover rounded-sm" /></span>
                                 {country.name} ({country.code})
                             </li>
                             ))}

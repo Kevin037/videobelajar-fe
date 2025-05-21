@@ -7,7 +7,6 @@ import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
 
 const Formlogin = () => {
-    const token = localStorage.getItem("token");
         const [email, setEmail]     = useState('');
         const [password, setPassword] = useState('');
         
@@ -25,10 +24,11 @@ const Formlogin = () => {
         },[user])
 
     useEffect(() => {
-        if(token !== null) {
-            window.location.href = "/";
+        const token = localStorage.getItem("token");
+        if(token === null) {
+            window.location.href = "/login";
         }
-    },[token])
+    }, []);
 
     return (
         <div className="space p-10 overflow-sm-hidden">
@@ -47,7 +47,7 @@ const Formlogin = () => {
                     <ButtonSecondary url="/register" varian="mt-2">Daftar</ButtonSecondary>
                     <div className="separator mt-4 mb-4">atau</div>
                     <ButtonSpan type="submit" varian="hover:bg-gray-50">
-                        <Image src="../assets/logos_google.svg" className="w-5 h-5" alt="Google" />
+                        <Image src="/assets/logos_google.svg" width={20} height={20} className="w-5 h-5" alt="Google" />
                         Daftar dengan Google
                     </ButtonSpan>
                 </form>

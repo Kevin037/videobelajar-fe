@@ -16,7 +16,7 @@ export default function ProgressPopover(props: ProgressProps) {
       >
         {progress == 100 ? (
           <div className="flex items-center space-x-2 border border-green-300 rounded-lg p-2">
-                        <Image src="/assets/champion.svg" alt="" />
+                        <Image src="/assets/champion.svg" width={20} height={20} alt="" />
                         <p>Ambil Serttifikat</p>
           </div>
         ) : (

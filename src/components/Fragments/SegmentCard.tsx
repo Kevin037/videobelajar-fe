@@ -48,14 +48,14 @@ export const ClassCard: React.FC<ClassCardProps> = (props) => {
             middleContent={
                 <>
                     <div className="col-span-12 md:col-span-3 ... gap-3 object-cover h-auto">
-                        <Image className="object-cover h-full w-full rounded-lg" src={`../assets/${order.photo}`} alt="" />
+                        <Image className="object-cover h-full w-full rounded-lg" src={`/assets/${order.photo}`} width={100} height={100} alt="" />
                     </div>
                     <div className="col-span-12 md:col-span-9 ... mx-2 sm:mx-0">
                         <h4 className="text-ls mt-2 md:mt-0 font-bold">{order.title}</h4>
                         <p className="text-sm mt-2 hidden md:block">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik</p>
                         <div className="my-2 grid grid-cols-3 grid-cols-12">
                             <div className="col-span-2 md:col-span-1">
-                                <Image src={`../assets/${order.tutor_photo}`} alt="" />
+                                <Image src={`/assets/${order.tutor_photo}`} width={20} height={20} alt="" />
                             </div>
                             <div className="text-sm col-span-10 md:col-span-10 ...">
                                 <p><b>{order.tutor}</b></p>
@@ -64,8 +64,8 @@ export const ClassCard: React.FC<ClassCardProps> = (props) => {
                         </div>
                         <div className="my-2 grid grid-cols-3 grid-cols-5 text-sm text-gray-500 mt-4">
                             <div className="col-span-5 md:col-span-3 flex gap-2">
-                                <Image src="../assets/modul.svg" className="w-5" alt="" />{order.total_my_classes} Modul
-                                <Image src="../assets/time.svg" className="w-5" alt="" />{order.total_time} Menit
+                                <Image src="/assets/modul.svg" width={20} height={20} className="w-5" alt="" />{order.total_my_classes} Modul
+                                <Image src="/assets/time.svg" width={20} height={20} className="w-5" alt="" />{order.total_time} Menit
                             </div>
                             <div className="col-span-1"></div>
                         </div>
@@ -79,10 +79,10 @@ export const ClassCard: React.FC<ClassCardProps> = (props) => {
                     </div>
                     <div className={`flex items-center col-span-6 ${(order.class_completed == "0") ? "md:col-span-5" : "md:col-span-3"}`}>
                         {(order.class_completed == "0") && (
-                            <Image src="../assets/progress_bar_completed.svg" className="justify-center w-full" alt="" />
+                            <Image src="/assets/progress_bar_completed.svg" width={100} height={100} className="justify-center w-full" alt="" />
                         )}
                         {(order.class_completed == "1") && (
-                            <Image src="../assets/progress_bar.svg" className="justify-center w-full" alt="" />  
+                            <Image src="/assets/progress_bar.svg" width={100} height={100} className="justify-center w-full" alt="" />  
                         )}
                     </div>
                     {(order.class_completed == "1") && (
@@ -126,7 +126,7 @@ export const OrderCard: React.FC<OrderCardProps> = (props) => {
                 middleContent={
                     <>
                         <div className="col-span-3 md:col-span-1 ...">
-                            <Image className="rounded-lg object-cover h-auto" src={`../assets/${order.photo}`} alt="" />
+                            <Image className="rounded-lg object-cover h-auto" src={`/assets/${order.photo}`} width={100} height={100} alt="" />
                         </div>
                         <div className="col-span-9 md:col-span-9 ...border-r border-gray-300">
                             <p className="text-lg">{order.name}</p>

@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 ...">
             <div className="col-span-1 ...">
-              <Image src="/assets/logo.svg" alt=""/>
+              <Image src="/assets/logo.svg" width={100} height={100} alt=""/>
               <h6 className="mt-4">Gali Potensi Anda Melalui Pembelajaran Video di hariesok.id!</h6>
               <p className="mt-2">Jl. Usman Effendi No. 50 Lowokwaru, Malang</p>
               <p className="mt-2">+62-877-7123-1234</p>
@@ -94,10 +94,10 @@ const Footer = () => {
             </div>
             <div className="content-end">
               <ul className="social-media flex space-x-4 mt-2 md:mt-0 sm:justify-start md:justify-end">
-                <li className="inline"><a href=""><Image src="assets/linkedin.svg" alt=""/></a></li>
-                <li className="inline"><a href=""><Image src="assets/facebook.svg" alt=""/></a></li>
-                <li className="inline"><a href=""><Image src="assets/instagram.svg" alt=""/></a></li>
-                <li className="inline"><a href=""><Image src="assets/twitter.svg" alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/linkedin.svg" width={20} height={20} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/facebook.svg" width={20} height={20} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/instagram.svg" width={20} height={20} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/twitter.svg" width={20} height={20} alt=""/></a></li>
               </ul>
             </div>
           </div>

@@ -41,7 +41,7 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                 <p className="text-gray-500">Silakan download rangkuman modul dari materi yang telah kamu pelajari</p>
                 <ButtonWhiteMD url="" varian="mt-4">
                 <div className="flex gap-2 justify-center">
-                    <Image src="/assets/download.svg" alt="" />
+                    <Image src="/assets/download.svg" width={20} height={20} alt="" />
                     <span>Download Rangkuman</span>
                 </div>
                 </ButtonWhiteMD>
@@ -53,7 +53,7 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                 <p>Pelajari dan praktikkan skill teknis dalam berbagai industri dengan Technical Book Riselearn</p>
                 <div className="my-2 grid grid-cols-3 grid-cols-12 ...">
                     <div className="col-span-1 ...">
-                        <Image src={`/assets/${orderData?.tutor_photo}`} alt="" />
+                        <Image src={`/assets/${orderData?.tutor_photo}`} width={50} height={50} alt="" />
                     </div>
                     <div className="text-sm col-span-11 ...">
                         <p><b>{orderData?.user}</b></p>
@@ -61,7 +61,7 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <Image src="/assets/rating.svg" alt=""/>
+                    <Image src="/assets/rating.svg" width={20} height={20} alt=""/>
                     <p>{orderData?.rating} ({orderData?.total_selling})</p>
                 </div>
             </div>
@@ -74,7 +74,7 @@ export const TestLesson: React.FC<TestLessonProps> = (props) => {
     const {type,classId,testNo} = props
     return (
         <>
-            <Image src="/assets/rules.svg" alt="" />
+            <Image src="/assets/rules.svg" width={50} height={50} alt="" />
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">
                 <H1>Aturan</H1>
                 <p className="my-2">Kerjakan {type} dengan sebaik mungkin untuk mengukur pemahaman awalmu terkait materi yang akan kamu pelajari</p>

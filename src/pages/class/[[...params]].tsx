@@ -118,7 +118,7 @@ useEffect(() => {
                         >
                             <div>
                                 <div className="flex items-center gap-1">
-                                    <Image src="/assets/lesson_test.svg" alt="" />
+                                    <Image src="/assets/lesson_test.svg" width={20} height={20} alt="" />
                                     <span className="text-sm text-gray-800">pre-test: </span>
                                     Introduction to {currentOrder?.title}
                                 </div>
@@ -152,9 +152,9 @@ useEffect(() => {
                                 >
                                     <div>
                                         <div className="flex items-center gap-1">
-                                            {lesson.type === "quiz" && <Image src="/assets/test.svg" alt="" />}
-                                            {lesson.type === "video" ? (lesson.status === "completed") ? (<Image src="/assets/completeModule.svg" alt="" />) : (<Image src="/assets/play.svg" alt="" />) : ""}
-                                            {lesson.type === "rangkuman" && <Image src="/assets/rangkuman.svg" alt="" />}
+                                            {lesson.type === "quiz" && <Image src="/assets/test.svg" width={20} height={20} alt="" />}
+                                            {lesson.type === "video" ? (lesson.status === "completed") ? (<Image src="/assets/completeModule.svg" width={20} height={20} alt="" />) : (<Image src="/assets/play.svg" width={20} height={20} alt="" />) : ""}
+                                            {lesson.type === "rangkuman" && <Image src="/assets/rangkuman.svg" width={20} height={20} alt="" />}
                                             <span className="text-sm text-gray-800">{ucfirst(lesson.type)}: </span>
                                             {(lesson.type === "video") ?lesson.name : lesson.group_name}
                                         </div>
@@ -171,7 +171,7 @@ useEffect(() => {
                     ))}
                     </div>
                     <div className="fixed bottom-0 md:bottom-13 w-full bg-orange-400 p-4 mt-4 hover:opacity-80">
-                        <button onClick={() => setModalOpen(true)} className="text-white flex gap-2"><Image src="../assets/star.svg" alt="" /> Beri Review & Rating</button>
+                        <button onClick={() => setModalOpen(true)} className="text-white flex gap-2"><Image src="/assets/star.svg" width={20} height={20} alt="" /> Beri Review & Rating</button>
                     </div>
                 </div>
                 <ModalReview isOpen={isModalOpen} user_rating={currentOrder?.user_rating} onClose={() => setModalOpen(false)} id={currentOrder?.id} />

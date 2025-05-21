@@ -39,7 +39,9 @@ const downloadCertificate = () => {
                         <div className="relative bg-[#f1fff4] px-0 py-6 sm:px-20 sm:py-10 rounded-xl flex justify-center">
                             <div ref={certRef}>
                                 <Image
-                                    src="../assets/certificate_template.svg"
+                                    src="/assets/certificate_template.svg"
+                                    width={500}
+                                    height={500}
                                     alt="certificate"
                                     className=""
                                 />
@@ -57,21 +59,21 @@ const downloadCertificate = () => {
                             <h4 className="text-ls sm:mt-2 font-bold">{currentOrder?.name}</h4>
                             <p className="text-sm mt-1 text-gray-400">{currentOrder?.description}</p>
                             <div className="flex gap-4 mt-3">
-                                <Image src={`../assets/${currentOrder?.tutor_photo}`} alt="" />
+                                <Image src={`/assets/${currentOrder?.tutor_photo}`} width={50} height={50} alt="" />
                                 <div>
                                     <p><b>{currentOrder?.tutor}</b></p>
                                     <p>{currentOrder?.user_position} di {currentOrder?.tutor_company}</p>
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <div><Image alt="" src="../assets/rating.svg"/></div>
+                                <div><Image alt="" src="/assets/rating.svg" width={20} height={20}/></div>
                                 <div>{currentOrder?.rating} ({currentOrder?.total_selling})</div>
                             </div>
                         </div>
                         <div className="col-span-3">
                             <ButtonWhiteMD varian="mt-4" onClick={() => downloadCertificate()}>
                             <div className="flex gap-2 justify-center">
-                                <Image src="../assets/download.svg" alt="" />
+                                <Image src="/assets/download.svg" width={20} height={20} alt="" />
                                 <span>Download Sertifikat</span>
                             </div>
                             </ButtonWhiteMD>

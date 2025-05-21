@@ -46,7 +46,7 @@ const strLimit = (str: string | undefined, limit: number): string => {
                         desc={selectedClass?.description}
                         varian="text-left"
                     >
-                    <Image className="mt-3" src="../assets/head_star.svg" alt="" />
+                    <Image className="mt-3" src="/assets/head_star.svg" width={50} height={50} alt="" />
                     </BannerContent>
                     )}
                 </div>
@@ -68,7 +68,7 @@ const strLimit = (str: string | undefined, limit: number): string => {
                                     <div className="col-span-1 ..." key={item.id}>
                                         <Card varian="md:mr-4">
                                             <div className="grid grid-cols-12 ...">
-                                                <div className="col-span-2 ... "><Image src={`../assets/${item.photo}`} alt="" /></div>
+                                                <div className="col-span-2 ... "><Image src={`/assets/${item.photo}`} width={50} height={50} alt="" /></div>
                                                 <div className="col-span-10 ...">
                                                     <p className="text-sm mx-2 font-medium">{item.name}</p>
                                                     <p className="text-xs mx-2">{item.position} di <span className="font-medium">{item.company}</span></p>
@@ -113,9 +113,9 @@ const strLimit = (str: string | undefined, limit: number): string => {
                                         </div>
                                         <div className="col-span-3 flex justify-end hidden md:block">
                                             <div className="flex items-center gap-1">
-                                                <Image src="../assets/play.svg" alt="" />
+                                                <Image src="/assets/play.svg" width={20} height={20} alt="" />
                                                 <span className="text-sm text-gray-800">Video</span>
-                                                <Image src="../assets/clock.svg" alt="" />
+                                                <Image src="/assets/clock.svg" width={20} height={20} alt="" />
                                                 <span className="text-sm text-gray-500">{lesson.duration} menit</span>
                                             </div>
                                         </div>

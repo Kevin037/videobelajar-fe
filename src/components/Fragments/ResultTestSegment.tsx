@@ -10,7 +10,7 @@ const TestResult: React.FC<TestResultProps> = (props) => {
     const image = (remedial) ? "/assets/tryagain.svg" : "/assets/result.svg"
     return (
         <>
-            <Image src={image} alt="" />
+            <Image src={image} width={50} height={50} alt="" />
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">
                 <div className=" mx-auto p-6 space-y-6">
                     <div>

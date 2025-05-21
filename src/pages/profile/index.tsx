@@ -74,12 +74,16 @@ const ProfilePage = () => {
                             {currentUser?.photo != null ? (
                                 <Image
                                 className="object-cover h-auto rounded-lg"
-                                src={currentUser?.photo} 
+                                src={currentUser?.photo}
+                                width={100}
+                                height={100}
                                 alt="" />
                             ) : (
                                 <Image
                                 className="object-cover h-auto rounded-lg"
-                                src="https://github.com/shadcn.png" 
+                                src="/assets/default-user.jpg"
+                                width={100}
+                                height={100}
                                 alt="" />
                             )}
                             </div>

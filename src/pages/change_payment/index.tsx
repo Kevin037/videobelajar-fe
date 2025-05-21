@@ -57,10 +57,10 @@ useEffect(() => {
 }, [status,id]);
 
  return (
-    <Authlayout title="Home" navType="home" withFooter={false} style={{paddingTop: "0"}} customHead={<Image alt="" src="../assets/process_choose_payment.svg" className="w-100" />}>
+    <Authlayout title="Home" navType="home" withFooter={false} style={{paddingTop: "0"}} customHead={<Image alt="" src="/assets/process_choose_payment.svg" width={100} height={100} className="w-100" />}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="p-2 mt-4 block md:hidden">
-                <Image alt="" src="../assets/process_choose_payment_mobile.svg" className="w-full" />
+                <Image alt="" src="/assets/process_choose_payment_mobile.svg" width={100} height={100} className="w-full" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 ...">
                 <div className="col-span-2 order-2 md:order-1">
@@ -100,6 +100,8 @@ useEffect(() => {
                                     <div className="flex items-center gap-3">
                                         <Image
                                         src={method.icon}
+                                        width={100}
+                                        height={100}
                                         alt={method.name}
                                         className="h-6"
                                         />

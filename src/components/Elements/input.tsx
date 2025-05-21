@@ -43,7 +43,9 @@ export const InputIcon = forwardRef<HTMLInputElement, InputIconProps>((props,ref
         >
             <Image
                 alt="icon"
-                src={`../assets/${icon}`}
+                src={`/assets/${icon}`}
+                width={20}
+                height={20}
                 className="h-5 w-auto"
                 onClick={onClick}
             />

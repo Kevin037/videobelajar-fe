@@ -54,7 +54,7 @@ const CategoryPage = () => {
                         </div>
                         <FilterSection
                             title={<span className="flex items-center gap-2">
-                                    <Image src="../assets/bidang_filter.svg" alt="" /> Bidang Studi
+                                    <Image src="/assets/bidang_filter.svg" width={20} height={20} alt="" /> Bidang Studi
                                     </span>}
                             name="ClassType"
                             options={classCategoriesData}
@@ -62,7 +62,7 @@ const CategoryPage = () => {
                         />
                         <FilterSection
                             title={<span className="flex items-center gap-2">
-                                <Image src="../assets/price_filter.svg" alt="" /> Harga
+                                <Image src="/assets/price_filter.svg" width={20} height={20} alt="" /> Harga
                                 </span>}
                             name="price"
                             options={priceFilters}
@@ -70,7 +70,7 @@ const CategoryPage = () => {
                         />
                         <FilterSection
                             title={<span className="flex items-center gap-2">
-                                <Image src="../assets/duration_filter.svg" alt="" /> Durasi
+                                <Image src="/assets/duration_filter.svg" width={20} height={20} alt="" /> Durasi
                                 </span>}
                             name="duration"
                             options={durationFilters}

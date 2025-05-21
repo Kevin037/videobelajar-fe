@@ -10,7 +10,6 @@ import { InfoIcon } from "lucide-react";
 import { classCategoriesType } from "@/services/types";
 // import { toast } from "react-toastify";
 
-const token = localStorage.getItem("token");
 const HomePage = () => {
 
 const [activeTab, setActiveTab] = useState<number | null>(null);
@@ -18,15 +17,10 @@ const category_id = activeTab === null ? null : activeTab;
 const { classData, classCategoriesData } = useClass({limit:0,category_id:category_id});
 
 useEffect(() => {
-    console.log(activeTab);
-    
-}, [activeTab]);
-
-useEffect(() => {
+    const token = localStorage.getItem("token");
     if(token === null) {
         window.location.href = "/login";
     }
-    localStorage.removeItem("transactions");
 }, []);
 
  return (

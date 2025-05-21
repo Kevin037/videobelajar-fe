@@ -1,35 +1,29 @@
 import { Button, Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Footer from "../Fragments/Footer";
-import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { AuthlayoutProps } from '@/services/types';
+import Link from 'next/link';
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
 
-type AuthlayoutProps = {
-    children: React.ReactNode;
-    navType: string;
-    withFooter?: boolean;
-    varianHead?: string;
-    style?: React.CSSProperties;
-    customHead?: React.ReactNode;
-    mainLayout?: boolean;
-    customLogo?: React.ReactNode;
-    userPhoto?: boolean;
-    title?: string
-}
-
-const user_photo = localStorage.getItem("user_photo");
 const Authlayout: React.FC<AuthlayoutProps> = (props) => {
     const {children, navType, withFooter, varianHead, style, customHead="", mainLayout=false, customLogo="", userPhoto=true} = props
     const {logOut, status} = useAuth();
+    const [user_photo, setPhotoUrl] = useState<string | null>(null);
     const handleLogout = () => {
       logOut();
     }
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        const storedPhoto = localStorage.getItem("user_photo");
+        setPhotoUrl(storedPhoto);
+      }
+    }, []);
 
     useEffect(() => {
       if (status) {
@@ -59,12 +53,13 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
                     {customLogo}
                   </div>
                 ) : (
-                <div>
-                <Link to="/">
+                <div style={{ width: 100, height: 32, position: "relative" }}>
+                <Link href="/">
                 <Image
                   alt="Your Company"
-                  src="../assets/logo.svg"
-                  className="h-8 w-auto"
+                  src="/assets/logo.svg"
+                  width={100}
+                  height={32}
                 />
                 </Link>
                 </div>
@@ -74,7 +69,7 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               {(navType != "auth" && customHead == "")  ?
             (
-              <a
+              <Link
                   key="kategori"
                   href="/category"
                   aria-current={undefined}
@@ -83,7 +78,7 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
                   )}
               >
               Kategori
-              </a>
+              </Link>
             ) : (
               <div className='hidden md:block'>
                 {customHead}
@@ -100,12 +95,16 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
                       <Image
                         alt=""
                         src={user_photo}
+                        width={10}
+                        height={10}
                         className="size-8 rounded-full"
                       />
                       ) : (
                       <Image
                         alt=""
-                        src="https://github.com/shadcn.png"
+                        width={10}
+                        height={10}
+                        src="/assets/default-user.jpg"
                         className="size-8 rounded-full"
                       />
                       )}
@@ -182,12 +181,16 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
                       <Image
                         alt=""
                         src={user_photo}
+                        width={10}
+                        height={10}
                         className="size-8 rounded-full mx-4"
                       />
                       ) : (
                       <Image
                         alt=""
-                        src="https://github.com/shadcn.png"
+                        width={10}
+                        height={10}
+                        src="/assets/default-user.jpg"
                         className="size-8 rounded-full mx-4"
                       />
                       )}

@@ -14,7 +14,7 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
         setModalOpen(false);
         return false;
     }
-      submitTest({id:testNo});
+      submitTest(testNo);
   };
   useEffect(() => {
     if (submitStatus) {
@@ -25,7 +25,7 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <>
-        <Image src="/assets/submitTest.svg" alt="" />
+        <Image src="/assets/submitTest.svg" width={50} height={50} alt="" />
         <p className="text-center mb-4">
           Apakah kamu yakin untuk menyelesaikan pretest ini?
         </p>

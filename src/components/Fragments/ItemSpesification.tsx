@@ -10,7 +10,7 @@ export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
     return (
         <Card varian="md:mr-4 p-4">
             {isDetail &&
-                <Image className="img-item hidden md:block" src={`../assets/${data?.photo}`} alt="" />
+                <Image className="img-item hidden md:block" src={`/assets/${data?.photo}`} width={200} height={200} alt="" />
             }
             <H1>{data?.page_title}</H1><br />
             <div className="grid grid-cols-12 ...">
@@ -38,7 +38,7 @@ export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
                     (facility.value) && (
                         <div key={facility.key} className="col-span-1 ... mt-3">
                             <div className="grid grid-cols-4 ...">
-                                <div className="col-span-1 ..."><Image src={`../assets/`+facility.img} alt="" /></div>
+                                <div className="col-span-1 ..."><Image src={`/assets/`+facility.img} width={30} height={30} alt="" /></div>
                                 <div className="col-span-3 ..."><p>{facility.value} {facility.name}</p></div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
             </div>
             <H2 varian="mt-4">Bahasa Pengantar</H2>
             <div className="grid grid-cols-8 ...">
-                <div className="col-span-1 ..."><Image src="../assets/bahasa.svg" alt="" /></div>
+                <div className="col-span-1 ..."><Image src="/assets/bahasa.svg" width={30} height={30} alt="" /></div>
                 <div className="col-span-7 ..."><p>{data?.language}</p></div>
             </div>
         </Card>

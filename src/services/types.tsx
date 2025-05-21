@@ -529,3 +529,16 @@ export type Facility = {
   value: string;
   img: string;
 };
+
+export type AuthlayoutProps = {
+    children: React.ReactNode;
+    navType: string;
+    withFooter?: boolean;
+    varianHead?: string;
+    style?: React.CSSProperties;
+    customHead?: React.ReactNode;
+    mainLayout?: boolean;
+    customLogo?: React.ReactNode;
+    userPhoto?: boolean;
+    title?: string
+}

@@ -1,7 +1,7 @@
 'use client';
 import axios from 'axios';
 
-const baseUrl = import.meta.env.VITE_FIREBASE_DB_BASEURL
+const baseUrl = process.env.NEXT_PUBLIC_DB_BASEURL
 // Create an Axios instance with default headers
 const api = axios.create({
   headers: {
