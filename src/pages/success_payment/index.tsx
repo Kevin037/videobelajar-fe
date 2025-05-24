@@ -5,9 +5,9 @@ import { Card } from "@/components/Elements/card";
 import { H2 } from "@/components/Elements/heading";
 import Image from "next/image";
 
-const token = localStorage.getItem("token");
 const SuccessPaymentPage = () => {
     useEffect(() => {
+        const token = localStorage.getItem("token");
         if(token === null) {
             window.location.href = "/login";
         }

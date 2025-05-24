@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 type ButtonType = 'button' | 'submit' | 'reset';
 
@@ -37,7 +37,7 @@ export const ButtonTheme: React.FC<LinkButtonProps> = (props) => {
       <Link 
         onClick={onClick}
         className={`block text-center w-full py-2 rounded-theme transition ${varian}`} 
-        to={url}
+        href={url}
         >
       {children}
       </Link>
@@ -59,7 +59,7 @@ export const ButtonMd: React.FC<LinkButtonProps> = (props) => {
     return (
       <Link 
         className={`bg-green-500 mt-4 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition cursor-pointer ${varian}`} 
-        to={url}
+        href={url}
         >
       {children}
       </Link>
@@ -141,7 +141,7 @@ export const ButtonPrimaryMD: React.FC<LinkButtonProps> = (props) => {
   if (url) {
     return (
       <Link 
-        to={url}
+        href={url}
         onClick={onClick}
         className={`${varian} block md:inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition cursor-pointer`}>
       {children}
@@ -174,7 +174,7 @@ export const ButtonWhiteMD: React.FC<LinkButtonProps> = (props) => {
   if (url) {
     return (
       <Link 
-        to={url}
+        href={url}
         onClick={onClick}
         className={`${varian} block md:inline-block bg-white-500 text-green-500 border px-4 py-2 rounded-lg hover:bg-white-600 transition cursor-pointer`}>
       {children}

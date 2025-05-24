@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom"
 import { Card } from "@/components/Elements/card"
 import { formatNumberToK } from "@/services/data"
 import Image from "next/image"
 import { CardItemsProps } from "@/services/types"
+import Link from "next/link"
 
 const CardItems: React.FC<CardItemsProps> = (props) => {
     const {data} = props
     return (
-        <Link to={`/product/${data.id}`}>
+        <Link href={`/product/${data.id}`}>
         <Card key={data.id} varian="mx-2 max-w-sm">
         <div className="grid grid-cols-3 md:grid-cols-1 ...">
             <div className="col-span-1 ...">

@@ -5,8 +5,8 @@ import { ArrowLeft, ArrowRight, Check} from "lucide-react";
 import { H1 } from "@/components/Elements/heading";
 import { ButtonPrimary, ButtonSecondary } from "@/components/Elements/button";
 import ModalSubmitTest from "@/components/Fragments/ModalSubmitTest";
-import { Link } from "react-router-dom";
 import { QuestionLessonProps } from "@/services/types";
+import Link from "next/link";
 
 export interface AnswerOption {
   key: string;
@@ -51,7 +51,7 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
                     <div className="grid grid-cols-10 ...">
                         {tests && tests.map((pretest) => (
                         <div className="col-span-2 ... p-2" key={pretest.id}>
-                            <Link to={`/class/${classId}/${type}/${pretest.id}`} 
+                            <Link href={`/class/${classId}/${type}/${pretest.id}`} 
                             className={`border-1 p-2 w-8 h-8 flex items-center justify-center border-gray-300 border-radius
                             ${pretest.user_answer != "" ? "bg-green-50 text-green-900 font-bold" : ""} ${pretest.id == testNo ? "bg-green-200 text-green-800" : ""}`}>{pretest.no}</Link>
                         </div>

@@ -13,7 +13,6 @@ import useClass from "../../hooks/useClass";
 import Image from "next/image";
 import { PaymentMethodsGroup } from "@/services/types";
 
-const token = localStorage.getItem("token");
 const ChangePaymentPage = () => {
     const {id} = useParams();
     const [paytmentMethods,setPaytmentMethods] = useState<PaymentMethodsGroup>({});
@@ -25,6 +24,7 @@ const ChangePaymentPage = () => {
     const { updateOrder, status } = useOrder();
 
 useEffect(() => {
+    const token = localStorage.getItem("token");
     if(token === null) {
         window.location.href = "/login";
     }

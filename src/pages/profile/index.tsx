@@ -8,7 +8,6 @@ import { FloatingInput, Select } from "@/components/Elements/input";
 import useUser from "@/hooks/useUser";
 import Image from "next/image";
 
-const token = localStorage.getItem("token");
 const ProfilePage = () => {
     const [file, setFile] = useState(null);
     const { currentUser, update, status, updateImage } = useUser();
@@ -17,6 +16,7 @@ const ProfilePage = () => {
     const selectPhotoRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
         if(token === null) {
             window.location.reload();
         }

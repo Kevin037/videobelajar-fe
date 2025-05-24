@@ -9,7 +9,6 @@ import { SidebarMenu } from "@/components/Fragments/SidebarMenu";
 import useOrder from "../../hooks/useOrder";
 import { OrderItem, OrderStatus, ParamsType } from "@/services/types";
 
-const token = localStorage.getItem("token");
 const OrderPage = () => {
 
     const [activeTab, setActiveTab] = useState<string>("");
@@ -25,6 +24,7 @@ const OrderPage = () => {
     const { orderData }: { orderData: OrderItem[] } = useOrder(null,params);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
         if(token === null) {
             window.location.href = "/login";
         }

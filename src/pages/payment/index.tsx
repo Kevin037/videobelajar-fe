@@ -40,7 +40,6 @@ type HowToPayGroup = {
   [key: string]: string; // tergantung implementasi `getHowToPay()`
 };
 
-const token = localStorage.getItem("token");
 const PaymentPage = () => {
     const {id} = useParams();
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
@@ -52,6 +51,7 @@ const PaymentPage = () => {
     const { paidOrder, status } = useOrder();
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
         if(token === null) {
             window.location.href = "/login";
         }

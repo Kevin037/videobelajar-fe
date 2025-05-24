@@ -11,7 +11,6 @@ import { InputIcon, Select } from "@/components/Elements/input";
 import Image from "next/image";
 import { classDateItem, FilterProps } from "@/services/types";
 
-const token = localStorage.getItem("token");
 const CategoryPage = () => {
 
     // Filter
@@ -29,6 +28,7 @@ const CategoryPage = () => {
     const keywordRef = useRef(null);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
         if(token === null) {
             window.location.href = "/login";
         }

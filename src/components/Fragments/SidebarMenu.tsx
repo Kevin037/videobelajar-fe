@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getSidebarMenus } from "@/services/data";
 import { Card } from "@/components/Elements/card";
-import { Link } from "react-router-dom";
 import Image from "next/image";
 import { SidebarMenuItem, SidebarMenuProps } from "@/services/types";
+import Link from "next/link";
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = (props) => {
     const {activeMenu} = props
@@ -14,7 +14,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = (props) => {
     return (
         <Card varian="md:mr-4">
             {sidebarMenus.length > 0 && sidebarMenus.map((menu) => (
-                <Link to={menu.url} key={menu.url}>
+                <Link href={menu.url} key={menu.url}>
                     <div 
                         className={`grid grid-cols-12 ... mt-2 p-2 ${
                             activeMenu === menu.url

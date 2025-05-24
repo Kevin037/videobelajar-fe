@@ -11,7 +11,6 @@ import ModalReview from "@/components/Fragments/ModalReview";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const token = localStorage.getItem("token");
 const MyClassPage = () => {
     const router = useRouter();
     const params = router.query.params as string[] | undefined;
@@ -32,6 +31,7 @@ const MyClassPage = () => {
     const {completeModule,status} = useLesson()
 
 useEffect(() => {
+    const token = localStorage.getItem("token");
     if(token === null) {
         window.location.href = "/login";
     }

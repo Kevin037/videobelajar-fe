@@ -9,7 +9,6 @@ import { ClassCard } from "@/components/Fragments/SegmentCard";
 import useOrder from "@/hooks/useOrder";
 import { ClassGroup, OrderItem, ParamsType } from "@/services/types";
 
-const token = localStorage.getItem("token");
 const ClassPage = () => {
 
     const [activeTab, setActiveTab] = useState<string>("");
@@ -25,6 +24,7 @@ const ClassPage = () => {
     const { myClassData}: { myClassData: OrderItem[] } = useOrder(null,params,null,true);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
         if(token === null) {
             window.location.href = "/login";
         }
