@@ -1,3 +1,4 @@
+import { ButtonTheme } from "@/components/Elements/button"
 import { Card } from "@/components/Elements/card"
 import { formatNumberToK } from "@/services/data"
 import Image from "next/image"
@@ -11,7 +12,13 @@ const CardItems: React.FC<CardItemsProps> = (props) => {
         <Card key={data.id} varian="mx-2 max-w-sm">
         <div className="grid grid-cols-3 md:grid-cols-1 ...">
             <div className="col-span-1 ...">
-                <Image width={200} height={200} className="img-item" src={`/assets/${data.photo}`} alt="" />
+                <Image width={400} height={225} className="w-full h-56 object-cover rounded-t-xl" src={`/assets/${data.photo}`} alt={data.name || "Course thumbnail"} />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
+                    <div className="flex items-center gap-2">
+                        <Image width={24} height={24} className="w-6 h-6" src="/assets/play.svg" alt="Video icon" />
+                        <span className="text-sm text-white">{data.duration} Video</span>
+                    </div>
+                </div>
             </div>
             <div className="col-span-2 ... mx-2 sm:mx-0">
                 <h4 className="text-ls sm:mt-2 font-bold">{data.name}</h4>

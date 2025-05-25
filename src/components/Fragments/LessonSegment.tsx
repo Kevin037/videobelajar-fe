@@ -6,7 +6,6 @@ import { ucfirst } from "@/services/data";
 import TestResult from "@/components/Fragments/ResultTestSegment";
 import Image from "next/image";
 import { ContentLessonProps, TestLessonProps, VideoLesssonProps } from "@/services/types";
-import { useEffect } from "react";
 
 export const ContentLessson: React.FC<ContentLessonProps> = (props) => {
     const {orderData,type,classId,testNo,test,tests,rules,resultData,selectedLesson} = props
@@ -75,13 +74,21 @@ export const TestLesson: React.FC<TestLessonProps> = (props) => {
     const {type,classId,testNo} = props
     return (
         <>
-            <Image src="/assets/rules.svg" width={50} height={50} alt="" />
+            <div className="relative w-full h-64">
+                <Image 
+                    src="/assets/rules.svg" 
+                    fill
+                    alt="Test rules illustration" 
+                    className="object-contain"
+                    priority
+                />
+            </div>
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">
                 <H1>Aturan</H1>
                 <p className="my-2">Kerjakan {type} dengan sebaik mungkin untuk mengukur pemahaman awalmu terkait materi yang akan kamu pelajari</p>
                 <p className="my-2">Syarat Nilai Kelulusan: - <br />Durasi Ujian: 5 Menit</p>
                 <p className="my-2">Jangan khawatir, total skor tidak akan memengaruhi kelulusan dan penilaian akhirmu dalam rangkaian kelas ini</p>
-            <ButtonPrimaryMD url={`/class/${classId}/${type}/${testNo}`} varian="mt-4 text-center">Mulai {ucfirst(type)}</ButtonPrimaryMD>
+                <ButtonPrimaryMD url={`/class/${classId}/${type}/${testNo}`} varian="mt-4 text-center">Mulai {ucfirst(type)}</ButtonPrimaryMD>
             </div>
         </>
     )

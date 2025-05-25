@@ -29,8 +29,7 @@ const ProfilePage = () => {
         }
     }, [currentUser]);
 
-    const HandlePaid = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    const HandlePaid = () => {
         update({ name, no_hp });
     };
 
@@ -90,7 +89,7 @@ const ProfilePage = () => {
                             <input type="file" 
                           ref={selectPhotoRef} 
                           className="hidden"
-                          onChange={() => handleFileChange}  
+                          onChange={(e) => handleFileChange(e)}  
                           name="" id="" />
                             <div className="col-span-9 md:col-span-10 ...">
                                 <div className="text-sm">
@@ -133,7 +132,7 @@ const ProfilePage = () => {
                             />
                         </div>
                         <div className="mt-4 flex justify-end">
-                            <ButtonPrimaryMDSubmit onClick={() => HandlePaid}>Simpan</ButtonPrimaryMDSubmit>
+                            <ButtonPrimaryMDSubmit onClick={HandlePaid}>Simpan</ButtonPrimaryMDSubmit>
                         </div>
                     </Card>
                 </div>

@@ -57,11 +57,25 @@ const PaymentPage = () => {
     }, [status]);
 
  return (
-    <Authlayout title="Home" navType="home" withFooter={false} style={{paddingTop: "0"}} customHead={<Image alt="" src="/assets/process_payment.svg" width={30} height={30} className="w-100" />}>
+    <Authlayout title="Home" navType="home" withFooter={false} style={{paddingTop: "0"}} customHead={
+        <Image 
+            src="/assets/process_payment.svg" 
+            width={160} 
+            height={40} 
+            alt="Payment process" 
+            className="w-full h-10 object-contain" 
+        />
+    }>
         <PaymentTimer />
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="p-2 mt-2 block md:hidden">
-                <Image alt="" src="/assets/process_payment_mobile.svg" width={30} height={30} className="w-full" />
+            <div className="p-2 mt-4 block md:hidden">
+                <Image 
+                    src="/assets/process_payment_mobile.svg" 
+                    width={320} 
+                    height={80} 
+                    alt="Payment process mobile" 
+                    className="w-full h-20 object-contain" 
+                />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 ...">
                 <div className="col-span-2 order-2 md:order-1">
@@ -95,7 +109,16 @@ const PaymentPage = () => {
                             </button>
                             {openHowToPay === groupName && (
                                 <div className="p-4 my-2">
-                                    {method}
+                                    <div className="flex items-center gap-3">
+                                        <Image
+                                            src={method.icon}
+                                            width={32}
+                                            height={32}
+                                            alt={method.name}
+                                            className="w-8 h-8 object-contain"
+                                        />
+                                        <span>{method.name}</span>
+                                    </div>
                                 </div>
                             )}
                             </div>

@@ -8,47 +8,66 @@ import { Facility, ItemSpesificationProps } from "@/services/types";
 export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
     const {isDetail,data,id,facilities} = props
     return (
-        <Card varian="md:mr-4 p-4">
-            {isDetail &&
-                <Image className="img-item hidden md:block" src={`/assets/${data?.photo}`} width={200} height={200} alt="" />
-            }
-            <H1>{data?.page_title}</H1><br />
-            <div className="grid grid-cols-12 ...">
-                <div className="col-span-3 ..."><b><h5 className="price">Rp {formatNumberToK(data?.new_price)}</h5></b></div>
-                <div className="col-span-5 ...">
-                    {data?.price > data?.new_price && (
-                        <p className="line-through text-black-400 text-md">Rp {formatNumberToK(data?.price)}</p>
-                    )}
-                </div>
-                <div className="col-span-4 ...">
-                    {data.discount > 0 && (
-                        <p className="bg-yellow-400 rounded-lg text-gray-100 text-md px-2 py-1">Diskon {data?.discount}%</p>
-                    )}
-                </div>
-            </div>
-            {!isDetail && 
-            <>
-                <p className="mt-2 text-sm text-blue-400">Penawaran spesial tersisa 2 hari lagi!</p>
-                <ButtonPrimary url={`/checkout/${id}`} varian="mt-4">Beli Sekarang</ButtonPrimary>
-            </>
-            }
-            <H2 varian="mt-4">Kelas Ini Sudah Termasuk</H2>
-            <div className="grid grid-cols-2 ...">
-                {facilities.length > 0 && facilities.map((facility:Facility) => (
-                    (facility.value) && (
-                        <div key={facility.key} className="col-span-1 ... mt-3">
-                            <div className="grid grid-cols-4 ...">
-                                <div className="col-span-1 ..."><Image src={`/assets/`+facility.img} width={30} height={30} alt="" /></div>
-                                <div className="col-span-3 ..."><p>{facility.value} {facility.name}</p></div>
-                            </div>
+        <Card>
+            <div className="relative">
+                <Image 
+                    src={`/assets/${data.photo}`} 
+                    width={400} 
+                    height={225} 
+                    alt={data.name || "Course thumbnail"} 
+                    className="w-full h-48 object-cover rounded-lg"
+                />
+                {!isDetail && (
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
+                        <div className="flex items-center gap-2">
+                            <Image 
+                                src="/assets/play.svg" 
+                                width={24} 
+                                height={24} 
+                                alt="Video icon" 
+                                className="w-6 h-6"
+                            />
+                            <span className="text-sm text-white">{data.duration} Video</span>
                         </div>
-                    )
-                ))}
+                    </div>
+                )}
             </div>
-            <H2 varian="mt-4">Bahasa Pengantar</H2>
-            <div className="grid grid-cols-8 ...">
-                <div className="col-span-1 ..."><Image src="/assets/bahasa.svg" width={30} height={30} alt="" /></div>
-                <div className="col-span-7 ..."><p>{data?.language}</p></div>
+            <div className="mt-4">
+                <H1>{data.name}</H1>
+                <p className="text-sm text-gray-600 mt-2">{data.description}</p>
+                <div className="mt-4">
+                    <div className="flex items-center gap-2 mb-2">
+                        <Image 
+                            src="/assets/rating.svg" 
+                            width={24} 
+                            height={24} 
+                            alt="Rating icon" 
+                            className="w-6 h-6"
+                        />
+                        <span className="text-sm">{data.rating} • {data.total_user} Pengguna</span>
+                    </div>
+                    {facilities && facilities.map((facility, index) => (
+                        <div key={index} className="flex items-center gap-2 mb-2">
+                            <Image 
+                                src={`/assets/${facility.icon}`} 
+                                width={24} 
+                                height={24} 
+                                alt={facility.name} 
+                                className="w-6 h-6"
+                            />
+                            <span className="text-sm">{facility.name}</span>
+                        </div>
+                    ))}
+                </div>
+                <div className="mt-4">
+                    <p className="text-gray-400 text-sm line-through">Rp {data.price}</p>
+                    <p className="text-green-600 font-semibold text-xl">Rp {data.new_price}</p>
+                </div>
+                {!isDetail && (
+                    <ButtonPrimary varian="w-full mt-4" url={`/checkout/${data.id}`}>
+                        Beli Sekarang
+                    </ButtonPrimary>
+                )}
             </div>
         </Card>
     )

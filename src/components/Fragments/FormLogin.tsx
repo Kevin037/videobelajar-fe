@@ -25,8 +25,8 @@ const Formlogin = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if(token === null) {
-            window.location.href = "/login";
+        if(token !== null) {
+            window.location.href = "/";
         }
     }, []);
 

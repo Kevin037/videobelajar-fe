@@ -10,9 +10,17 @@ const TestResult: React.FC<TestResultProps> = (props) => {
     const image = (remedial) ? "/assets/tryagain.svg" : "/assets/result.svg"
     return (
         <>
-            <Image src={image} width={50} height={50} alt="" />
+            <div className="relative w-full h-64">
+                <Image 
+                    src={image} 
+                    fill
+                    alt={remedial ? "Try again illustration" : "Success result illustration"} 
+                    className="object-contain"
+                    priority
+                />
+            </div>
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">
-                <div className=" mx-auto p-6 space-y-6">
+                <div className="mx-auto p-6 space-y-6">
                     <div>
                         <h2 className="text-lg font-semibold">Tanggal Pretest:</h2>
                         <p className="text-gray-600">{resultData?.submitted_at}</p>
