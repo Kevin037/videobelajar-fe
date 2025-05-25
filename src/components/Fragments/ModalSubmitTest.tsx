@@ -14,6 +14,8 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
         setModalOpen(false);
         return false;
     }
+    console.log(testNo);
+    
       submitTest(testNo);
   };
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
           <ButtonWhite onClick={onClose} >
             Batal
           </ButtonWhite>
-          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={() => SubmitTest()}>
+          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={SubmitTest()}>
             Selesai
           </ButtonPrimary>
         </div>

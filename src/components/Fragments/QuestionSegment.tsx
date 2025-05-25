@@ -16,7 +16,7 @@ export interface AnswerOption {
 const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
     const {orderData,type,classId,testNo,test,tests} = props
     const [answerOptions, setAnswerOptions] = useState<AnswerOption[]>([]);
-    const {updateAnswer} = useLesson();
+    const {updateAnswer, answerStatus} = useLesson();
     const [selectedOption, setSelectedOption] = useState(test?.user_answer);
     const [totalAnswer, setTotalAnswer] = useState(0);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -38,10 +38,12 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
         }
     },[tests])
 
-    const SendAnswer = (e: ChangeEvent<HTMLInputElement>,key:string) => {
-        setSelectedOption(key)
+    const SendAnswer = async (e: ChangeEvent<HTMLInputElement>, key: string) => {
         e.preventDefault();
-        updateAnswer({id:testNo,answer:key});
+        setSelectedOption(key);
+        await updateAnswer({id:testNo,answer:key});
+        // Update total answered questions
+        setTotalAnswer(prev => prev + (test?.user_answer ? 0 : 1));
     };
     return (
         <>

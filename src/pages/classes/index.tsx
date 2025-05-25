@@ -21,7 +21,7 @@ const ClassPage = () => {
             setParams({});
         }
     },[activeTab])
-    const { myClassData}: { myClassData: OrderItem[] } = useOrder(null,params,null,true);
+    const { myClassData}: { myClassData: OrderItem[] } = useOrder(null,params,true);
 
     useEffect(() => {
         const token = localStorage.getItem("token");

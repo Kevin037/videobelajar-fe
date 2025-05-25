@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Authlayout from "@/components/Layouts/AuthLayout";
 import CardItems from "@/components/Fragments/CardItems";
 import { BannerContent } from "@/components/Fragments/Content";
@@ -6,14 +6,15 @@ import { Card } from "@/components/Elements/card";
 import { H1 } from "@/components/Elements/heading";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { ItemSpesification } from "@/components/Fragments/ItemSpesification";
-import { useParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import useClass from "../../hooks/useClass";
 import Image from "next/image";
 import { CardItemsPropVal } from "@/services/types";
 
 const ProductPage = () => {
-    const {id} = useParams<{ id: string }>();
-    const numericId = id ? parseInt(id) : null;
+    const router = useRouter();
+    const { id } = router.query;
+    const numericId = id ? (Array.isArray(id) ? parseInt(id[0]) : parseInt(id)) : null;
     const { selectedClass, classFacilities } = useClass({id:numericId});
     const { limitedClass } = useClass({id:numericId,limit:3});
 

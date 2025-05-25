@@ -87,7 +87,7 @@ export const CompleteModuleThunk = createAsyncThunk<boolean, number | string, { 
   'order_lesson/complete',
   async (id, thunkAPI) => {
     try {
-      await api.patch('/my_classes/process',id);
+      await api.patch('/my_classes/process',{id});
       return true;
     } catch (err: unknown) {
         let errorMessage = "Something went wrong";
@@ -104,7 +104,7 @@ export const submitTestThunk = createAsyncThunk<boolean, number | string, { reje
   'test/submit',
   async (orderLessonId, thunkAPI) => {
     try {
-      await api.patch('/my_classes/submit',orderLessonId);
+      await api.patch('/my_classes/submit',{id:orderLessonId});
       return true;
     } catch (err: unknown) {
         let errorMessage = "Something went wrong";

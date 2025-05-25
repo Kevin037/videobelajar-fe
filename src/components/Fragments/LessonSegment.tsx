@@ -6,6 +6,7 @@ import { ucfirst } from "@/services/data";
 import TestResult from "@/components/Fragments/ResultTestSegment";
 import Image from "next/image";
 import { ContentLessonProps, TestLessonProps, VideoLesssonProps } from "@/services/types";
+import { useEffect } from "react";
 
 export const ContentLessson: React.FC<ContentLessonProps> = (props) => {
     const {orderData,type,classId,testNo,test,tests,rules,resultData,selectedLesson} = props

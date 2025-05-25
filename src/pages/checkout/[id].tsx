@@ -1,27 +1,29 @@
 import { FormEvent, useEffect, useState } from "react";
 import Authlayout from "@/components/Layouts/AuthLayout";
+import { getPaymentMethods } from "@/services/data";
 import { ButtonPrimarySubmit } from "@/components/Elements/button";
 import { Card } from "@/components/Elements/card";
 import { H1 } from "@/components/Elements/heading";
 import { ItemSpesification } from "@/components/Fragments/ItemSpesification";
-import { getPaymentMethodGroup, getPaymentMethods } from "@/services/data";
-import { TransactionNominal } from "@/components/Fragments/TransactionNominal";
 import { CheckCircle, ChevronDown } from "lucide-react";
-import useOrder from "../../hooks/useOrder";
-import { useParams } from "react-router-dom";
-import useClass from "../../hooks/useClass";
+import { TransactionNominal } from "@/components/Fragments/TransactionNominal";
+import useClass from "@/hooks/useClass";
+import useOrder from "@/hooks/useOrder";
 import Image from "next/image";
 import { PaymentMethodsGroup } from "@/services/types";
+import { useRouter } from "next/router";
 
-const ChangePaymentPage = () => {
-    const {id} = useParams();
+const CheckoutPage = () => {
+    const router = useRouter();
+    const { id } = router.query;
     const [paytmentMethods,setPaytmentMethods] = useState<PaymentMethodsGroup>({});
-    const [openGroup, setOpenGroup] = useState<string>("Transfer Bank");
-    const [paymentMethod, setPaymentMethod] = useState<string>("");
-    const { currentOrder } = useOrder(id);
-    const class_id = currentOrder?.class_id;
-    const { classFacilities } = useClass({id:class_id});
-    const { updateOrder, status } = useOrder();
+    const [openGroup, setOpenGroup] = useState("Transfer Bank");
+    const [paymentMethod, setpaymentMethod] = useState("");
+    const numericId = id ? (Array.isArray(id) ? parseInt(id[0]) : parseInt(id)) : null;
+    const { selectedClass, classFacilities } = useClass({id:numericId});
+    const [class_id, setClassId] = useState<string | null>(null);
+
+    const { currentOrder, createOrder } = useOrder();
 
 useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,41 +34,36 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-    if (currentOrder) {
-        setPaymentMethod(currentOrder.payment_method);
-        const group = getPaymentMethodGroup(currentOrder.payment_method);
-        if (group) {
-            setOpenGroup(group);      
-        }
+    if (id) {
+        setClassId(Array.isArray(id) ? id[0] : id);
     }
-}, [currentOrder]);
+}, [id]);
 
-const UpdateTransaction = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+const HandleCheckout = () => {
     if (paymentMethod === "") {
         alert("Pilih Metode Pembayaran");
-        return false;
+        return;
     }
-    updateOrder({ order_id:id,payment_method:paymentMethod });
+    if (selectedClass && class_id) {
+        const price = selectedClass.new_price;
+        createOrder({ price, class_id, paymentMethod });
+    }
 };
 
 useEffect(() => {
-    if (status) {
-        window.location.href = "/payment/"+id;
+    if (currentOrder) {
+        window.location.href = "/payment/"+currentOrder;
     }
-}, [status,id]);
+}, [currentOrder]);
 
  return (
-    <Authlayout title="Home" navType="home" withFooter={false} style={{paddingTop: "0"}} customHead={<Image alt="" src="/assets/process_choose_payment.svg" width={100} height={100} className="w-100" />}>
+    <Authlayout title="Home" navType="home" withFooter={false} style={{paddingTop: "0"}} customHead={<Image alt="" src="/assets/process_choose_payment.svg" width={30} height={30} className="w-100" />}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="p-2 mt-4 block md:hidden">
-                <Image alt="" src="/assets/process_choose_payment_mobile.svg" width={100} height={100} className="w-full" />
+                <Image alt="" src="/assets/process_choose_payment_mobile.svg" width={30} height={30} className="w-full" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 ...">
                 <div className="col-span-2 order-2 md:order-1">
-                        <Card varian="md:mr-4 mt-4 py-6">
-                        <TransactionNominal />
-                    </Card>
                     <Card varian="md:mr-4">
                         <H1>Metode Pembayaran</H1><br />
                         {Object.entries(paytmentMethods).map(([groupName, methods]) => (
@@ -95,13 +92,13 @@ useEffect(() => {
                                         ? "bg-orange-50"
                                         : "bg-white"
                                     }`}
-                                    onClick={() => setPaymentMethod(method.key)}
+                                    onClick={() => setpaymentMethod(method.key)}
                                     >
                                     <div className="flex items-center gap-3">
                                         <Image
                                         src={method.icon}
-                                        width={100}
-                                        height={100}
+                                        width={30}
+                                        height={30}
                                         alt={method.name}
                                         className="h-6"
                                         />
@@ -116,13 +113,16 @@ useEffect(() => {
                             )}
                             </div>
                         ))}
-                        <ButtonPrimarySubmit onClick={() => UpdateTransaction} varian="w-full mt-4">Bayar Sekarang</ButtonPrimarySubmit>
+                    </Card>
+                    <Card varian="md:mr-4 mt-4 py-6">
+                        <TransactionNominal />
+                        <ButtonPrimarySubmit onClick={HandleCheckout} varian="w-full mt-4">Beli Sekarang</ButtonPrimarySubmit>
                     </Card>
                 </div>
                 <div className="col-span-1 ... mx-2 sm:mx-0 order-1 lg:order-2">
-                    {currentOrder && (
-                        <ItemSpesification isDetail={true} data={currentOrder} facilities={classFacilities}/>
-                    )}
+                {selectedClass && (
+                    <ItemSpesification isDetail={true} data={selectedClass} facilities={classFacilities} />
+                )}
                 </div>
             </div>
         </div>
@@ -130,4 +130,4 @@ useEffect(() => {
  );
 }
 
-export default ChangePaymentPage
+export default CheckoutPage

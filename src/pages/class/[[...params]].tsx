@@ -16,7 +16,7 @@ const MyClassPage = () => {
     const params = router.query.params as string[] | undefined;
     const [idRaw, lessonId, noRaw, rules] = params || [];
     const id = Number(idRaw);
-    const no = Number(noRaw);
+    const no = (noRaw) ? Number(noRaw) : null;
 
     const { currentOrder, orderLessons } = useOrder(id);
     const lesson_id = 
@@ -44,7 +44,6 @@ const [nextPage, setNextPage] = useState<number | null>(null);
 useEffect(() => {
     if (selectedLesson) {
         const openIndexActive = (lessonId === "pre-test") ? lessonId : selectedLesson?.group_name;
-        
         setOpenIndex(openIndexActive);
         let active = lesson_id;
         if (lessonId === "quiz") active = no;
@@ -52,8 +51,9 @@ useEffect(() => {
         setActiveLesson(active);
     }
 }, [orderLessons, selectedLesson, lessonId, no, lesson_id]);
+
 const toggle = (index: string) => {
-  setOpenIndex(openIndex === index ? null : index);
+    setOpenIndex(openIndex === index ? "" : index);
 };
 
 const strLimit = (str: string, limit:number) => {
@@ -126,7 +126,7 @@ useEffect(() => {
                             </div>
                         </div>
                     </a>
-                    {(openIndex !== null && orderLessons.length > 0 && activeLesson) && orderLessons.map((section, index) => (
+                    {orderLessons.length > 0 && activeLesson && orderLessons.map((section, index) => (
                         <div key={index} className="mb-4">
                         <button
                             onClick={() => toggle(section.title)}

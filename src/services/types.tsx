@@ -470,12 +470,12 @@ export type useOrderType = {
   currentOrder: Order | null;
   loading: boolean;
   error: string | boolean | null;
-  createOrder: (userData: OrderData) => void;
+  // createOrder: (userData: OrderData) => void;
   orderData: Order[];
-  updateOrder: (orderData: any) => void;
+  // updateOrder: (orderData: any) => void;
   status: boolean | null;
   orderLessons: Section[];
-  createReview: (reviewData: ReviewData) => void;
+  // createReview: (reviewData: ReviewData) => void;
   paidOrder: (id: any) => void;
   myClassData: ClassDataType[];
 }

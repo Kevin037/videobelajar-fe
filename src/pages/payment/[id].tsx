@@ -9,39 +9,19 @@ import { TransactionNominal } from "@/components/Fragments/TransactionNominal";
 import { PaymentMethodDetail } from "@/components/Fragments/PaymentMethodDetail";
 import { ChevronDown } from "lucide-react";
 import { PaymentTimer } from "@/components/Fragments/PaymentTimer";
-import { useParams } from "react-router-dom";
 import useOrder from "@/hooks/useOrder";
 import useClass from "@/hooks/useClass";
 import Image from "next/image";
 import { PaymentMethod } from "@/services/types";
-// import { HowToPayGroup } from "@/services/types";
-
-// export type HowToPay = {
-//   id: string;
-//   name: string;
-//   number: string;
-//   icon: string;
-//   key: string;
-// };
-
-// export type HowToPayGroup = {
-//   [key: string]: HowToPay[];
-// };
-
-// type HowToPayItem = {
-//   id: string;
-//   name: string;
-//   number: string;
-//   icon: string;
-//   key: string;
-// };
+import { useRouter } from "next/router";
 
 type HowToPayGroup = {
   [key: string]: string; // tergantung implementasi `getHowToPay()`
 };
 
 const PaymentPage = () => {
-    const {id} = useParams();
+    const router = useRouter();
+    const { id } = router.query;
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
     const [openHowToPay, setOpenHowToPay] = useState<string>("");
     const [howToPays, setHowToPays] = useState<HowToPayGroup>({});
@@ -62,8 +42,7 @@ const PaymentPage = () => {
         setPaymentMethod(getPaymentMethods(currentOrder?.payment_method));
     }, [currentOrder]);
 
-    const HandlePaid = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    const HandlePaid = () => {
         if (paymentMethod === null) {
             alert("Pilih Metode Pembayaran");
             return false;
@@ -94,7 +73,7 @@ const PaymentPage = () => {
                         <TransactionNominal /><br />
                         <div className="grid grid-cols-1 md:grid-cols-2  ... gap-2 mt-2">
                             <div className="col-span-1 my-1"><ButtonWhite url={`/change_payment/${id}`}>Ganti Metode Pembayaran</ButtonWhite></div>
-                            <div className="col-span-1 my-1"><ButtonPrimarySubmit onClick={() => HandlePaid} >Bayar Sekarang</ButtonPrimarySubmit></div>
+                            <div className="col-span-1 my-1"><ButtonPrimarySubmit onClick={HandlePaid} >Bayar Sekarang</ButtonPrimarySubmit></div>
                         </div>
                     </Card>
                     <Card varian="md:mr-4">
