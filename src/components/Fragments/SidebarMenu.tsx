@@ -8,24 +8,30 @@ import Link from "next/link";
 export const SidebarMenu: React.FC<SidebarMenuProps> = (props) => {
     const {activeMenu} = props
     const [sidebarMenus, setSidebarMenus] = useState<SidebarMenuItem[]>([]);
+    
     useEffect(() => {
         setSidebarMenus(getSidebarMenus());
     }, []);
+
     return (
         <Card varian="md:mr-4">
             {sidebarMenus.length > 0 && sidebarMenus.map((menu) => (
                 <Link href={menu.url} key={menu.url}>
                     <div 
-                        className={`grid grid-cols-12 ... mt-2 p-2 ${
+                        className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
                             activeMenu === menu.url
-                                ? "text-orange-400 bg-orange-50 border-orange-400 border rounded-sm"
-                                : ""
-                        }`} 
-                        key={menu.id}>
-                        <div className="col-span-2 md:col-span-3 ... mx-3">
-                            <Image className="object-cover" src={activeMenu === menu.url ? menu.activeIcon : menu.icon} width={20} height={20} alt="" />
-                        </div>
-                        <div className="col-span-10 md:col-span-9 ...">{menu.name}</div>
+                                ? "bg-orange-50 text-orange-600"
+                                : "hover:bg-gray-50"
+                        }`}
+                    >
+                        <Image 
+                            src={activeMenu === menu.url ? menu.activeIcon : menu.icon}
+                            width={24}
+                            height={24}
+                            alt={menu.name}
+                            className="w-6 h-6"
+                        />
+                        <span className="text-sm font-medium">{menu.name}</span>
                     </div>
                 </Link>
             ))}

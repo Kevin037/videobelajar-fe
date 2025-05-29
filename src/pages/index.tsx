@@ -14,10 +14,11 @@ import useAuth from "@/hooks/useAuth";
 
 const HomePage = () => {
     const router = useRouter();
+    const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<number | null>(null);
     const category_id = activeTab === null ? null : activeTab;
-    const { classData, classCategoriesData } = useClass({limit:9,category_id:category_id});
+    const { classData, classCategoriesData } = useClass({limit:0,category_id:category_id});
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -25,13 +26,11 @@ const HomePage = () => {
             if (!token) {
                 router.push('/login');
             } else {
-                // Jika sudah ada token dan user, tampilkan halaman
                 setIsLoading(false);
             }
         };
         checkAuth();
     }, [router]);
-
     if (isLoading) {
         return (
             <Authlayout title="Home" navType="home">

@@ -47,7 +47,13 @@ const strLimit = (str: string | undefined, limit: number): string => {
                         desc={selectedClass?.description}
                         varian="text-left"
                     >
-                    <Image className="mt-3" src="/assets/head_star.svg" width={50} height={50} alt="" />
+                    <Image 
+                        src="/assets/head_star.svg" 
+                        width={48} 
+                        height={48} 
+                        alt="Rating star" 
+                        className="mt-3 w-12 h-12" 
+                    />
                     </BannerContent>
                     )}
                 </div>
@@ -69,7 +75,15 @@ const strLimit = (str: string | undefined, limit: number): string => {
                                     <div className="col-span-1 ..." key={item.id}>
                                         <Card varian="md:mr-4">
                                             <div className="grid grid-cols-12 ...">
-                                                <div className="col-span-2 ... "><Image src={`/assets/${item.photo}`} width={50} height={50} alt="" /></div>
+                                                <div className="col-span-2 ...">
+                                                    <Image 
+                                                        src={`/assets/${item.photo}`} 
+                                                        width={64} 
+                                                        height={64} 
+                                                        alt={`${item.name}'s photo`}
+                                                        className="w-16 h-16 rounded-full object-cover" 
+                                                    />
+                                                </div>
                                                 <div className="col-span-10 ...">
                                                     <p className="text-sm mx-2 font-medium">{item.name}</p>
                                                     <p className="text-xs mx-2">{item.position} di <span className="font-medium">{item.company}</span></p>

@@ -102,14 +102,12 @@ export const TestLesson: React.FC<TestLessonProps> = (props) => {
     const {type,classId,testNo} = props
     return (
         <>
-            <div className="relative w-full h-64 flex items-center justify-center">
+            <div className="relative w-full h-64">
                 <Image 
                     src="/assets/rules.svg" 
-                    width={400}
-                    height={256}
+                    fill
                     alt="Test rules illustration" 
-                    className="w-auto h-full object-contain"
-                    priority
+                    className="object-contain"
                 />
             </div>
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">
