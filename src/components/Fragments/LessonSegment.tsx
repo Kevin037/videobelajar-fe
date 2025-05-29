@@ -85,10 +85,9 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                 <div className="flex gap-3">
                     <Image 
                         src="/assets/rating.svg" 
-                        width={20} 
-                        height={20} 
+                        width={100} 
+                        height={100} 
                         alt="Rating icon"
-                        className="w-5 h-5"
                     />
                     <p>{orderData?.rating} ({orderData?.total_selling})</p>
                 </div>
@@ -102,12 +101,14 @@ export const TestLesson: React.FC<TestLessonProps> = (props) => {
     const {type,classId,testNo} = props
     return (
         <>
-            <div className="relative w-full h-64">
+            <div className="relative w-full h-64 flex items-center justify-center">
                 <Image 
                     src="/assets/rules.svg" 
-                    fill
+                    width={400}
+                    height={256}
                     alt="Test rules illustration" 
-                    className="object-contain"
+                    className="w-auto h-full object-contain"
+                    priority
                 />
             </div>
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">

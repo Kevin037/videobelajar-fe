@@ -14,8 +14,6 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
         setModalOpen(false);
         return false;
     }
-    console.log(testNo);
-    
       submitTest(testNo);
   };
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <>
-        <Image src="/assets/submitTest.svg" width={50} height={50} alt="" />
+        <Image src="/assets/submitTest.svg" width={400} height={50} alt="" className="mx-auto" />
         <p className="text-center mb-4">
           Apakah kamu yakin untuk menyelesaikan pretest ini?
         </p>
@@ -36,7 +34,7 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
           <ButtonWhite onClick={onClose} >
             Batal
           </ButtonWhite>
-          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={SubmitTest()}>
+          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={() => SubmitTest()}>
             Selesai
           </ButtonPrimary>
         </div>

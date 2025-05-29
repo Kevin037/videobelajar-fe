@@ -16,7 +16,7 @@ const CardItems: React.FC<CardItemsProps> = (props) => {
                 <Image 
                     width={400} 
                     height={225} 
-                    className="w-full h-56 object-cover rounded-t-xl" 
+                    className="img-item" 
                     src={data.photo.startsWith('http') ? data.photo : `/assets/${data.photo}`}
                     alt={data.name || "Course thumbnail"}
                 />
@@ -56,11 +56,10 @@ const CardItems: React.FC<CardItemsProps> = (props) => {
             <div className="grid grid-cols-1 grid-cols-2 ...">
                 <div className="col-span-1">
                     <Image 
-                        width={20} 
-                        height={20} 
+                        width={100} 
+                        height={100} 
                         alt="Rating icon" 
                         src="/assets/rating.svg"
-                        className="w-5 h-5"
                     />
                 </div>
                 <div className="col-span-1">{data.rating_average} ({data.total_selling})</div>

@@ -49,10 +49,10 @@ const strLimit = (str: string | undefined, limit: number): string => {
                     >
                     <Image 
                         src="/assets/head_star.svg" 
-                        width={48} 
-                        height={48} 
+                        width={200} 
+                        height={200} 
                         alt="Rating star" 
-                        className="mt-3 w-12 h-12" 
+                        className="mt-3" 
                     />
                     </BannerContent>
                     )}

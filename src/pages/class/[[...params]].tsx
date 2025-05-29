@@ -101,12 +101,12 @@ useEffect(() => {
                 <div className="cols-span-1 flex flex-col block md:hidden my-8">
                     <div className={`left-0 w-full bg-green-600 text-white flex ${afterLesson && !beforeLesson ? "justify-end" : "justify-between"} items-center px-4 py-3 z-50`}>
                         {beforeLesson && (
-                            <button className="flex items-center gap-2 hover:opacity-70 cursor-pointer" onClick={() => {window.location.href = `/class/${id}/${beforeLesson?.id}`}}>
+                            <button className="flex items-center gap-2 hover:opacity-70 cursor-pointer" onClick={(e) => CompleteModule(e,beforeLesson?.id)}>
                                 <span className="text-xl">←</span> Sebelumnya
                             </button>
                         )}
                         {afterLesson && (
-                            <button className="flex items-right gap-2 hover:opacity-70 cursor-pointer" onClick={() => {window.location.href = `/class/${id}/${afterLesson?.id}`}}>
+                            <button className="flex items-right gap-2 hover:opacity-70 cursor-pointer" onClick={(e) => {CompleteModule(e,afterLesson?.id)}}>
                                 Selanjutnya <span className="text-xl">→</span>
                             </button>
                         )}
