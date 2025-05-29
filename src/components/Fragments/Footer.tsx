@@ -94,10 +94,10 @@ const Footer = () => {
             </div>
             <div className="content-end">
               <ul className="social-media flex space-x-4 mt-2 md:mt-0 sm:justify-start md:justify-end">
-                <li className="inline"><a href=""><Image src="/assets/linkedin.svg" width={20} height={20} alt=""/></a></li>
-                <li className="inline"><a href=""><Image src="/assets/facebook.svg" width={20} height={20} alt=""/></a></li>
-                <li className="inline"><a href=""><Image src="/assets/instagram.svg" width={20} height={20} alt=""/></a></li>
-                <li className="inline"><a href=""><Image src="/assets/twitter.svg" width={20} height={20} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/linkedin.svg" width={40} height={40} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/facebook.svg" width={40} height={40} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/instagram.svg" width={40} height={40} alt=""/></a></li>
+                <li className="inline"><a href=""><Image src="/assets/twitter.svg" width={40} height={40} alt=""/></a></li>
               </ul>
             </div>
           </div>

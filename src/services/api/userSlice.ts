@@ -16,12 +16,31 @@ export const registerUserThunk = createAsyncThunk<boolean, UserData, { rejectVal
       await api.post('/auth/register', userData);
       return true;
     } catch (err: unknown) {
-        let errorMessage = "Something went wrong";
-        if (typeof err === "object" && err !== null && "response" in err) {
-          const error = err as { response?: { data?: string }; message?: string };
-          errorMessage = error.response?.data ?? error.message ?? errorMessage;
+      if (err && typeof err === 'object' && 'response' in err) {
+        const error = err as { response?: { data?: { message?: string; errors?: any } } };
+        
+        // Handle validation errors
+        if (error.response?.data?.errors) {
+          const validationErrors = error.response.data.errors;
+          const firstError = Object.values(validationErrors)[0];
+          return thunkAPI.rejectWithValue(Array.isArray(firstError) ? firstError[0] : String(firstError));
         }
-      return thunkAPI.rejectWithValue(errorMessage);
+        
+        // Handle specific error messages
+        if (error.response?.data?.message) {
+          const message = error.response.data.message;
+          if (message.includes('email') && message.includes('already')) {
+            return thunkAPI.rejectWithValue('Email sudah terdaftar');
+          }
+          if (message.includes('phone') && message.includes('already')) {
+            return thunkAPI.rejectWithValue('Nomor telepon sudah terdaftar');
+          }
+          return thunkAPI.rejectWithValue(message);
+        }
+      }
+      
+      // Fallback error message
+      return thunkAPI.rejectWithValue('Terjadi kesalahan, silakan coba lagi');
     }
   }
 );

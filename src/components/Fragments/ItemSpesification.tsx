@@ -4,9 +4,13 @@ import { H1, H2 } from "@/components/Elements/heading";
 import { ButtonPrimary } from "@/components/Elements/button";
 import Image from "next/image";
 import { Facility, ItemSpesificationProps } from "@/services/types";
+import { useEffect } from "react";
 
 export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
     const {isDetail,data,id,facilities} = props
+    useEffect(() => {
+        console.log(data)
+    }, [data])
     return (
         <Card varian="md:mr-4 p-4">
             {isDetail &&
@@ -14,7 +18,7 @@ export const ItemSpesification: React.FC<ItemSpesificationProps> = (props) => {
             }
             <H1>{data?.page_title}</H1><br />
             <div className="grid grid-cols-12 ...">
-                <div className="col-span-3 ..."><b><h5 className="price">Rp {formatNumberToK(data?.new_price)}</h5></b></div>
+                <div className="col-span-3 ..."><b><h5 className="price">Rp {formatNumberToK((data.new_price) ? data.new_price : data.price)}</h5></b></div>
                 <div className="col-span-5 ...">
                     {data?.price > data?.new_price && (
                         <p className="line-through text-black-400 text-md">Rp {formatNumberToK(data?.price)}</p>

@@ -6,7 +6,6 @@ import { ucfirst } from "@/services/data";
 import TestResult from "@/components/Fragments/ResultTestSegment";
 import Image from "next/image";
 import { ContentLessonProps, TestLessonProps, VideoLesssonProps } from "@/services/types";
-import { useEffect } from "react";
 
 export const ContentLessson: React.FC<ContentLessonProps> = (props) => {
     const {orderData,type,classId,testNo,test,tests,rules,resultData,selectedLesson} = props
@@ -42,7 +41,13 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                 <p className="text-gray-500">Silakan download rangkuman modul dari materi yang telah kamu pelajari</p>
                 <ButtonWhiteMD url="" varian="mt-4">
                 <div className="flex gap-2 justify-center">
-                    <Image src="/assets/download.svg" width={20} height={20} alt="" />
+                    <Image 
+                        src="/assets/download.svg" 
+                        width={20} 
+                        height={20} 
+                        alt="Download icon"
+                        className="w-5 h-5"
+                    />
                     <span>Download Rangkuman</span>
                 </div>
                 </ButtonWhiteMD>
@@ -54,7 +59,23 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                 <p>Pelajari dan praktikkan skill teknis dalam berbagai industri dengan Technical Book Riselearn</p>
                 <div className="my-2 grid grid-cols-3 grid-cols-12 ...">
                     <div className="col-span-1 ...">
-                        <Image src={`/assets/${orderData?.tutor_photo}`} width={50} height={50} alt="" />
+                        {orderData?.tutor_photo ? (
+                            <Image 
+                                src={orderData.tutor_photo.startsWith('http') ? orderData.tutor_photo : `/assets/${orderData.tutor_photo}`}
+                                width={50} 
+                                height={50} 
+                                alt="Tutor photo"
+                                className="w-[50px] h-[50px] rounded-full object-cover"
+                            />
+                        ) : (
+                            <Image 
+                                src="/assets/default-user.jpg"
+                                width={50} 
+                                height={50} 
+                                alt="Default tutor photo"
+                                className="w-[50px] h-[50px] rounded-full object-cover"
+                            />
+                        )}
                     </div>
                     <div className="text-sm col-span-11 ...">
                         <p><b>{orderData?.user}</b></p>
@@ -62,7 +83,13 @@ export const VideoLessson: React.FC<VideoLesssonProps> = (props) => {
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <Image src="/assets/rating.svg" width={20} height={20} alt=""/>
+                    <Image 
+                        src="/assets/rating.svg" 
+                        width={20} 
+                        height={20} 
+                        alt="Rating icon"
+                        className="w-5 h-5"
+                    />
                     <p>{orderData?.rating} ({orderData?.total_selling})</p>
                 </div>
             </div>
@@ -75,13 +102,22 @@ export const TestLesson: React.FC<TestLessonProps> = (props) => {
     const {type,classId,testNo} = props
     return (
         <>
-            <Image src="/assets/rules.svg" width={50} height={50} alt="" />
+            <div className="relative w-full h-64 flex items-center justify-center">
+                <Image 
+                    src="/assets/rules.svg" 
+                    width={400}
+                    height={256}
+                    alt="Test rules illustration" 
+                    className="w-auto h-full object-contain"
+                    priority
+                />
+            </div>
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-4">
                 <H1>Aturan</H1>
                 <p className="my-2">Kerjakan {type} dengan sebaik mungkin untuk mengukur pemahaman awalmu terkait materi yang akan kamu pelajari</p>
                 <p className="my-2">Syarat Nilai Kelulusan: - <br />Durasi Ujian: 5 Menit</p>
                 <p className="my-2">Jangan khawatir, total skor tidak akan memengaruhi kelulusan dan penilaian akhirmu dalam rangkaian kelas ini</p>
-            <ButtonPrimaryMD url={`/class/${classId}/${type}/${testNo}`} varian="mt-4 text-center">Mulai {ucfirst(type)}</ButtonPrimaryMD>
+                <ButtonPrimaryMD url={`/class/${classId}/${type}/${testNo}`} varian="mt-4 text-center">Mulai {ucfirst(type)}</ButtonPrimaryMD>
             </div>
         </>
     )

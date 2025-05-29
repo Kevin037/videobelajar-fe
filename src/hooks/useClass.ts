@@ -12,12 +12,12 @@ const useClass = ({id=null,limit=0,category_id = null, price = null, duration = 
   const { loading } = useTypedSelector(state => state.class);
 
   useEffect(() => {
-    dispatch(getClasses({category_id, price, duration, search, order_by}));
+    dispatch(getClasses({category_id, price, duration, search, order_by, limit}));
     dispatch(getClassCategories());
     if (id) {
       dispatch(fetchClassById(id)); 
     }
-  }, [dispatch, category_id, price, duration, search, order_by,id]);
+  }, [dispatch, category_id, price, duration, search, order_by,id, limit]);
 
   return { classData, loading, selectedClass, limitedClass, classFacilities, classCategoriesData};
 };

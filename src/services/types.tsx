@@ -399,7 +399,7 @@ export interface GetClassesParams {
   duration?: number | null;
   search?: string | null;
   order_by?: string | null;
-
+  limit?: number | null;
 }
 
 export interface UseClassParams {

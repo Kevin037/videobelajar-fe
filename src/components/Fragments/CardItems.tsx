@@ -1,3 +1,4 @@
+import { ButtonTheme } from "@/components/Elements/button"
 import { Card } from "@/components/Elements/card"
 import { formatNumberToK } from "@/services/data"
 import Image from "next/image"
@@ -10,15 +11,37 @@ const CardItems: React.FC<CardItemsProps> = (props) => {
         <Link href={`/product/${data.id}`}>
         <Card key={data.id} varian="mx-2 max-w-sm">
         <div className="grid grid-cols-3 md:grid-cols-1 ...">
-            <div className="col-span-1 ...">
-                <Image width={200} height={200} className="img-item" src={`/assets/${data.photo}`} alt="" />
+            <div className="col-span-1 ... relative">
+                <Image 
+                    width={400} 
+                    height={225} 
+                    className="w-full h-56 object-cover rounded-t-xl" 
+                    src={data.photo.startsWith('http') ? data.photo : `/assets/${data.photo}`}
+                    alt={data.name || "Course thumbnail"}
+                />
             </div>
             <div className="col-span-2 ... mx-2 sm:mx-0">
                 <h4 className="text-ls sm:mt-2 font-bold">{data.name}</h4>
                 <p className="text-sm mt-2 hidden md:block">{data.description}</p>
                 <div className="my-2 grid grid-cols-3 grid-cols-5 ...">
                     <div className="col-span-1 ...">
-                        <Image width={20} height={20} src={`/assets/${data.tutor_photo}`} alt="" />
+                        {data.tutor_photo ? (
+                            <Image 
+                                width={40} 
+                                height={40} 
+                                src={data.tutor_photo.startsWith('http') ? data.tutor_photo : `/assets/${data.tutor_photo}`}
+                                alt={`${data.tutor}'s photo`}
+                                className="w-10 h-10 rounded-full object-cover"
+                            />
+                        ) : (
+                            <Image 
+                                width={40} 
+                                height={40} 
+                                src="/assets/default-user.jpg"
+                                alt="Default tutor photo"
+                                className="w-10 h-10 rounded-full object-cover"
+                            />
+                        )}
                     </div>
                     <div className="text-sm col-span-4 ...">
                         <p><b>{data.tutor}</b></p>
@@ -30,7 +53,15 @@ const CardItems: React.FC<CardItemsProps> = (props) => {
         <div className="grid grid-cols-1 grid-cols-4 ...">
             <div className="col-span-3 ...">
             <div className="grid grid-cols-1 grid-cols-2 ...">
-                <div className="col-span-1"><Image width={20} height={20} alt="" src="/assets/rating.svg"/></div>
+                <div className="col-span-1">
+                    <Image 
+                        width={20} 
+                        height={20} 
+                        alt="Rating icon" 
+                        src="/assets/rating.svg"
+                        className="w-5 h-5"
+                    />
+                </div>
                 <div className="col-span-1">{data.rating_average} ({data.total_selling})</div>
             </div>
             </div>

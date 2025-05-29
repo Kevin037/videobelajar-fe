@@ -53,12 +53,12 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
                     {customLogo}
                   </div>
                 ) : (
-                <div style={{ width: 100, height: 32, position: "relative" }}>
+                <div>
                 <Link href="/">
                 <Image
                   alt="Your Company"
                   src="/assets/logo.svg"
-                  width={100}
+                  width={200}
                   height={32}
                 />
                 </Link>

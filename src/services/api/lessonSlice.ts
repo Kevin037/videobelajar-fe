@@ -86,6 +86,8 @@ export const updateAnswerThunk = createAsyncThunk<boolean, AnswerDataType, { rej
 export const CompleteModuleThunk = createAsyncThunk<boolean, number | string, { rejectValue: string }>(
   'order_lesson/complete',
   async (id, thunkAPI) => {
+    console.log(id);
+    
     try {
       await api.patch('/my_classes/process',{id});
       return true;

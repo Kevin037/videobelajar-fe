@@ -6,11 +6,26 @@ interface LoginCredentials {
   email: string;
   password: string;
 }
+
 interface AuthState {
   user: string | null;
   loading: boolean;
   error: string | null;
   status: boolean;
+}
+
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    photo?: string;
+    [key: string]: any;
+  };
+}
+
+interface ErrorResponse {
+  message: string;
+  [key: string]: any;
 }
 
 const initialState: AuthState = {
@@ -21,39 +36,44 @@ const initialState: AuthState = {
 };
 
 export const loginUserThunk = createAsyncThunk<
-  string, LoginCredentials,  {rejectValue: string}
+  string, 
+  LoginCredentials,  
+  {rejectValue: string}
 >(
   "user/login",
   async (credentials, thunkAPI) => {
     try {
-      const user = await api.post('/auth/login', credentials);
-      const token = user?.data?.token;
-      if (user?.data?.user) {
-        localStorage.setItem("user", user?.data?.user.id);
-        if (user?.data?.user.photo != null) {
-          localStorage.setItem("user_photo", user?.data?.user.photo); 
+      const response = await api.post<LoginResponse>('/auth/login', credentials);
+      const { token, user } = response.data;
+      
+      if (user) {
+        localStorage.setItem("user", user.id);
+        if (user.photo != null) {
+          localStorage.setItem("user_photo", user.photo); 
         }
-        localStorage.setItem("token", user?.data?.token);
+        localStorage.setItem("token", token);
+        return token;
       }
-      return token;
-    } catch (err:unknown) {
-        let errorMessage = "Logout failed";
-        if (typeof err === "object" && err !== null && "response" in err) {
-          const error = err as { response?: { data?: string }; message?: string };
-          errorMessage = error.response?.data ?? error.message ?? errorMessage;
-        }
-      return thunkAPI.rejectWithValue(errorMessage);
+      
+      return thunkAPI.rejectWithValue("Login gagal, silakan coba lagi");
+    } catch (err: any) {
+      if (err.response?.data) {
+        const errorData = err.response.data as ErrorResponse;
+        return thunkAPI.rejectWithValue(errorData.message || "Login gagal");
+      }
+      // Handle network or other errors
+      return thunkAPI.rejectWithValue("Terjadi kesalahan, silakan coba lagi");
     }
   }
 );
 
 export const logOutuserThunk = createAsyncThunk<
-  boolean, // return type
-  void, // input type
-  { rejectValue: string } // reject value
+  boolean,
+  void,
+  {rejectValue: string}
 >(
-  'lessons/deleteLesson',
-async (_,thunkAPI) => {
+  'user/logout',
+  async (_, thunkAPI) => {
     try {
       await api.post('/auth/logout');
       localStorage.removeItem("token");
@@ -61,11 +81,11 @@ async (_,thunkAPI) => {
       localStorage.removeItem("user_photo");
       return true;
     } catch (err: unknown) {
-        let errorMessage = "Logout failed";
-        if (typeof err === "object" && err !== null && "response" in err) {
-        const error = err as { response?: { data?: string }; message?: string };
-        errorMessage = error.response?.data ?? error.message ?? errorMessage;
-    }
+      let errorMessage = "Logout gagal";
+      if (typeof err === "object" && err !== null && "response" in err) {
+        const error = err as { response?: { data?: ErrorResponse }; message?: string };
+        errorMessage = error.response?.data?.message ?? error.message ?? errorMessage;
+      }
       return thunkAPI.rejectWithValue(errorMessage);
     }
   }
@@ -91,11 +111,13 @@ const authSlice = createSlice({
       })
       .addCase(loginUserThunk.fulfilled, (state, action: PayloadAction<string>) => {
         state.loading = false;
-        state.user = action.payload;   
+        state.user = action.payload;
+        state.error = null;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ?? "Login failed";
+        state.user = null;
+        state.error = action.payload ?? "Login gagal";
       })
       .addCase(logOutuserThunk.pending, (state) => {
         state.loading = true;
@@ -103,11 +125,13 @@ const authSlice = createSlice({
       })
       .addCase(logOutuserThunk.fulfilled, (state) => {
         state.loading = false;
-        state.status = true;  
+        state.status = true;
+        state.user = null;
+        state.error = null;
       })
       .addCase(logOutuserThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ?? "Logout failed";
+        state.error = action.payload ?? "Logout gagal";
         state.status = false;
       });
   }
