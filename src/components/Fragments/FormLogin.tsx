@@ -5,30 +5,46 @@ import { HeadAuth } from "@/components/Fragments/Content";
 import { FormEvent, useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const Formlogin = () => {
-        const [email, setEmail]     = useState('');
-        const [password, setPassword] = useState('');
-        
-        const { user, loading, login } = useAuth();
-      
-        const HandleLogin = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault();
-          login({ email, password });
-        };
+    const router = useRouter();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     
-        useEffect(() => {
-            if (user) {
-                window.location.href = "/login";   
-            }
-        },[user])
+    const { user, loading, error, login } = useAuth();
+  
+    const HandleLogin = async (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (!email || !password) {
+            toast.warning('Mohon isi email dan password');
+            return;
+        }
+        await login({ email, password });
+    };
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if(token !== null) {
-            window.location.href = "/";
+        // If user is logged in, redirect to home
+        if (user) {
+            router.push('/');
         }
-    }, []);
+    }, [user, router]);
+
+    useEffect(() => {
+        // Check if already logged in
+        const token = localStorage.getItem("token");
+        if (token) {
+            router.push('/');
+        }
+    }, [router]);
+
+    // Show error toast when error occurs
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+    }, [error]);
 
     return (
         <div className="space p-10 overflow-sm-hidden">
