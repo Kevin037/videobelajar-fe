@@ -80,7 +80,7 @@ const Authlayout: React.FC<AuthlayoutProps> = (props) => {
               Kategori
               </Link>
             ) : (
-              <div className='hidden md:block'>
+              <div className=''>
                 {customHead}
               </div>
             )}

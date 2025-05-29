@@ -40,6 +40,7 @@ const QuestionLesson: React.FC<QuestionLessonProps> = (props) => {
 
     const SendAnswer = async (e: ChangeEvent<HTMLInputElement>, key: string) => {
         e.preventDefault();
+        e.stopPropagation();
         setSelectedOption(key);
         await updateAnswer({id:testNo,answer:key});
         // Update total answered questions

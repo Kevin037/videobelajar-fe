@@ -88,7 +88,7 @@ useEffect(() => {
         withFooter={false} 
         mainLayout={true} 
         customLogo={beforeLesson && (
-            <a href={`/class/${id}/${beforeLesson?.id}`}><span className="text-xl">←</span> {strLimit(beforeLesson?.name, 60)}</a>
+            <a href={`/class/${id}/${beforeLesson?.id}`}><span className="text-xl">←</span> {strLimit(beforeLesson?.name, 30)}</a>
         )}
         customHead={<ProgressPopover id={currentOrder?.id} progress={currentOrder?.progress} completeModule={currentOrder?.totalCompletedModule} totalModule={currentOrder?.totalModule} />}
         userPhoto={true}

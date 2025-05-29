@@ -13,7 +13,7 @@ const ProgressPopover: React.FC<ProgressProps> = (props) => {
     <div className="relative inline-block">
       {/* Trigger */}
       <div
-        className="cursor-pointer flex items-center space-x-2 text-green-600 hover:opacity-80"
+        className="cursor-pointer flex items-center space-x-2 text-green-600 hover:opacity-80 mr-7 sm:mr-0"
         onClick={() => setIsOpen(!isOpen)}
       >
         {progress == 100 ? (
@@ -23,7 +23,7 @@ const ProgressPopover: React.FC<ProgressProps> = (props) => {
           </div>
         ) : (
           <>
-            <div className="w-32 h-2 bg-gray-200 rounded-full">
+            <div className="w-32 h-2 bg-gray-200 rounded-full hidden sm:block">
               <div
                 className="h-full bg-green-500 rounded-full"
                 style={{ width: `${progress}%` }}
@@ -37,33 +37,15 @@ const ProgressPopover: React.FC<ProgressProps> = (props) => {
 
       {/* Popover */}
       {isOpen && (
-        <Card varian="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/assets/progress.svg"
-                width={32}
-                height={32}
-                alt="Progress icon"
-                className="w-8 h-8"
-              />
-              <div>
-                <H2>Progress Belajar</H2>
-                <p className="text-sm text-gray-600">
-                  {completeModule} dari {totalModule} modul selesai
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <ButtonDisabled
-                varian={`${progress != 100 ? "bg-gray-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"}`}
-                url={`${progress != 100 ? "#" : `/certificate/${id}`}`}
-              >
-                Ambil Sertifikat
-              </ButtonDisabled>
-            </div>
-          </div>
-        </Card>
+        <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl p-4 z-50">
+          <h3 className="font-semibold text-sm mb-1">{progress != 100 ? progress+"%" : ""} Modul {progress != 100 ? "telah" : "sudah"} selesai</h3>
+          <p className="text-sm text-gray-500 mb-3">
+            {progress != 100 ? "Selesaikan Semua Modul Untuk Mendapatkan Sertifikat" : `${completeModule} dari ${totalModule} modul telah selesai, silahkan download sertifikat`}
+          </p>
+          <ButtonDisabled 
+          varian={`${progress != 100 ? "bg-gray-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"}`} 
+          url={`${progress != 100 ? "#" : `/certificate/${id}`}`}>Ambil Sertifikat</ButtonDisabled>
+        </div>
       )}
     </div>
   );

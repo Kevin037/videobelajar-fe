@@ -31,10 +31,10 @@ export default function ModalSubmitTest({ isOpen, onClose, totalAnswer, totalQue
         </p>
         {/* BUTTONS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <ButtonWhite onClick={onClose} >
+          <ButtonWhite onClick={onClose} varian="cursor-pointer">
             Batal
           </ButtonWhite>
-          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onClick={() => SubmitTest()}>
+          <ButtonPrimary varian="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 cursor-pointer" onClick={() => SubmitTest()}>
             Selesai
           </ButtonPrimary>
         </div>
