@@ -19,7 +19,7 @@ const ProgressPopover: React.FC<ProgressProps> = (props) => {
         {progress == 100 ? (
           <div className="flex items-center space-x-2 border border-green-300 rounded-lg p-2">
             <Image src="/assets/champion.svg" width={20} height={20} alt="" />
-            <p>Ambil Serttifikat</p>
+            <p className="hidden sm:block">Ambil Serttifikat</p>
           </div>
         ) : (
           <>
@@ -37,7 +37,7 @@ const ProgressPopover: React.FC<ProgressProps> = (props) => {
 
       {/* Popover */}
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl p-4 z-50">
+        <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl p-4 z-50">
           <h3 className="font-semibold text-sm mb-1">{progress != 100 ? progress+"%" : ""} Modul {progress != 100 ? "telah" : "sudah"} selesai</h3>
           <p className="text-sm text-gray-500 mb-3">
             {progress != 100 ? "Selesaikan Semua Modul Untuk Mendapatkan Sertifikat" : `${completeModule} dari ${totalModule} modul telah selesai, silahkan download sertifikat`}
