@@ -66,7 +66,7 @@ const downloadCertificate = () => {
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <div><Image alt="" src="/assets/rating.svg" width={20} height={20}/></div>
+                                <div><Image alt="" src="/assets/rating.svg" width={100} height={100}/></div>
                                 <div>{currentOrder?.rating} ({currentOrder?.total_selling})</div>
                             </div>
                         </div>
